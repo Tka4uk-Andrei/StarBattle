@@ -1,8 +1,8 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.screens.play.ai;
 
 import com.badlogic.gdx.Screen;
 
-public class EditorSettings implements Screen {
+public class AILevelChoose implements Screen {
     @Override
     public void show() {
 

@@ -1,4 +1,4 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.screens.play.online;
 
 import com.badlogic.gdx.Screen;
 

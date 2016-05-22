@@ -1,8 +1,8 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.screens.editor;
 
 import com.badlogic.gdx.Screen;
 
-public class PlayScreen implements Screen {
+public class EditorSettings implements Screen {
     @Override
     public void show() {
 

@@ -1,8 +1,8 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.screens.play.online;
 
 import com.badlogic.gdx.Screen;
 
-public class AILevelChoose implements Screen {
+public class ConnectSettings implements Screen {
     @Override
     public void show() {
 

@@ -1,8 +1,8 @@
-package com.mygdx.game.screens;
+package com.mygdx.game.screens.play;
 
 import com.badlogic.gdx.Screen;
 
-public class AIPlay implements Screen {
+public class Description implements Screen {
     @Override
     public void show() {
 

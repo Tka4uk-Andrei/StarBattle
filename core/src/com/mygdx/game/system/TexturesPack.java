@@ -5,8 +5,9 @@ import com.badlogic.gdx.utils.Array;
 
 public abstract class TexturesPack {
 
-    public abstract int getFrameTime();
-
     public abstract Array<Texture> getTextures();
 
+    public abstract int getFrameTime();
+
+    public abstract float getDeltaDegree();
 }

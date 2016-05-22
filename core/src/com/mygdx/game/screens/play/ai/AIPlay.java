@@ -3,10 +3,11 @@ package com.mygdx.game.screens.play.ai;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GdxGame;
 
 public class AIPlay implements Screen, GestureDetector.GestureListener {
 
-    public AIPlay() {
+    public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose) {
 
     }
 

@@ -19,6 +19,7 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
         batch = new SpriteBatch();
 
+
     }
 
     @Override
@@ -53,7 +54,7 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
     }
 
 
@@ -61,7 +62,8 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-
+        aiPlay = new AIPlay();
+        gdxGame.setScreen(aiPlay);
         return true;
     }
 

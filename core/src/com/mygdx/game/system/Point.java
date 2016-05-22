@@ -40,7 +40,7 @@ public class Point {
         y = point.getY();
     }
 
-    public boolean inRangeThatPoint(Point point, double xRange, double yRange) {
+    public boolean inRectRangeThatPoint(Point point, double xRange, double yRange) {
         return inRangeXThatPoint(point, xRange) && inRangeYThatPoint(point, yRange);
     }
 

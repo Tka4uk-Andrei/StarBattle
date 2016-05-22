@@ -2,7 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Screen;
 
-public class LevelEditor implements Screen {
+public class NetworkPlay implements Screen {
     @Override
     public void show() {
 

@@ -27,6 +27,8 @@ public class PlayScreen implements Screen, GestureDetector.GestureListener {
         this.mainMenu = mainMenu;
 
         batch = new SpriteBatch();
+
+        Gdx.input.setInputProcessor(new GestureDetector(this));
     }
 
     @Override

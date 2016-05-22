@@ -7,8 +7,10 @@ public class StarModel {
     private int side = 0;
     private int currentFrame;
     private Point centerPoint;
+    private int type;
+    private int connectedStars[];
 
-    public StarModel(Point centerPoint, int currentFrame) {
+    public StarModel(Point centerPoint, int currentFrame, int type, int[] connectedStars) {
         this.centerPoint = new Point(centerPoint);
         this.currentFrame = currentFrame;
     }

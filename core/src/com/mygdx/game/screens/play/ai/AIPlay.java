@@ -1,14 +1,32 @@
 package com.mygdx.game.screens.play.ai;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
+import com.mygdx.game.models.StarModel;
+import com.mygdx.game.system.Point;
+import com.mygdx.game.system.View;
+import com.mygdx.game.textures.ships.raptor.RaptorTextureFriendly;
 
 public class AIPlay implements Screen, GestureDetector.GestureListener {
 
-    public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose) {
+    private SpriteBatch batch;
+    private GdxGame gdxGame;
+    private AILevelChoose aiLevelChoose;
 
+    public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose, Array<StarModel> starModels) {
+
+        this.gdxGame = gdxGame;
+        this.aiLevelChoose = aiLevelChoose;
+
+        batch = new SpriteBatch();
+
+        Gdx.input.setInputProcessor(new GestureDetector(this));
     }
 
     @Override
@@ -18,7 +36,8 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
     @Override
     public void render(float delta) {
-
+        Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
@@ -47,10 +66,10 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
     }
 
 
-
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        return false;
+
+        return true;
     }
 
     @Override

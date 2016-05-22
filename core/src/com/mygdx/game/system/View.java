@@ -1,5 +1,7 @@
 package com.mygdx.game.system;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class View {
 
     private TexturesPack textures;
@@ -21,6 +23,7 @@ public class View {
 
     public void update(boolean rotationFlag) {
         if (System.currentTimeMillis() - time >= textures.getFrameTime()) {
+            time = System.currentTimeMillis();
             currentFrame = (currentFrame + 1) % textures.getTextures().size;
             if (rotationFlag) {
                 rotation += textures.getDeltaDegree();
@@ -45,5 +48,13 @@ public class View {
     public void setRenderPoint(Point centerPoint) {
         renderPoint.setX(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth());
         renderPoint.setY(centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight());
+    }
+
+    public Texture getFrame(){
+        return textures.getTextures().get(currentFrame);
+    }
+
+    public float getRotation(){
+        return rotation;
     }
 }

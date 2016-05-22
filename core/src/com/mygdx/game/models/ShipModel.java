@@ -7,6 +7,7 @@ public class ShipModel {
     private int side = 0;
     private int currentFrame = 0;
     private Point centerPoint;
+    private int type;
 
     public ShipModel (Point centerPoint, int currentFrame, int side) {
 

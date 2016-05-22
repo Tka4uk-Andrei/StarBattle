@@ -1,11 +1,16 @@
 package com.mygdx.game.screens.play.ai;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
+import com.mygdx.game.models.StarModel;
 import com.mygdx.game.screens.play.PlayScreen;
+import com.mygdx.game.system.Point;
 
 public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
@@ -15,11 +20,29 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
     private AIPlay aiPlay;
 
+    private float px;
+    private float py;
+
+    private int screenWidth;
+    private int screenHeight;
+
     public AILevelChoose(GdxGame gdxGame, PlayScreen playScreen){
+
+        this.gdxGame = gdxGame;
+        this.playScreen = playScreen;
 
         batch = new SpriteBatch();
 
+        Gdx.input.setInputProcessor(new GestureDetector(this));
 
+        screenHeight = Gdx.graphics.getHeight();
+        screenWidth = Gdx.graphics.getWidth();
+
+        int mapWidth = 6;
+        int mapHeight = 4;
+
+        px = (screenWidth - 128 - 64) / (mapWidth * 2);
+        py = (screenHeight - 64) / (mapHeight * 2);
     }
 
     @Override
@@ -29,7 +52,8 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
     @Override
     public void render(float delta) {
-
+        Gdx.gl.glClearColor(1, 0, 0.647f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override
@@ -62,7 +86,60 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        aiPlay = new AIPlay();
+
+        Array<StarModel> stars = new Array<StarModel>();
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
+                screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 1,
+                new int[]{1, 2, 3}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
+                screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 1,
+                new int[]{0, 4, 5}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
+                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                new int[]{0, 3, 6, 8}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
+                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                new int[]{0, 2, 4, 9}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
+                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                new int[]{1, 3, 5, 9, 10}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
+                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                new int[]{1, 4, 7, 11}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
+                screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 1,
+                new int[]{2}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
+                screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 1,
+                new int[]{5}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
+                screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                new int[]{2, 9}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
+                screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                new int[]{3, 8, 4, 10}));
+
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
+                screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                new int[]{4, 9, 11}));
+
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
+                screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                new int[]{5, 10}));
+
+
+        aiPlay = new AIPlay(gdxGame, this, stars);
         gdxGame.setScreen(aiPlay);
         return true;
     }

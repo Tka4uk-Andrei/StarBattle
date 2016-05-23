@@ -1,41 +1,43 @@
 package com.mygdx.game.actions;
 
 import com.mygdx.game.gameObjects.ships.Ship;
+import com.mygdx.game.models.FleetModel;
 import com.mygdx.game.models.ShipModel;
-import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.Constants;
 
 public class Fight {
 
-    private StarModel starModel;
+    private FleetModel fleetModel;
+    private Ship ship;
 
-    public Fight(StarModel starModel) {
-        this.starModel = starModel;
+    public Fight(FleetModel fleetModel, Ship ship) {
+        this.fleetModel = fleetModel;
+        this.ship = ship;
     }
 
-    public void fight(Ship ship) {
+    public void fight() {
 
         if (ship.getModel().getSide() != Constants.Sides.HOSTILE) {
 
-            int shipHealth = shipsFight(getShipHealth(ship.getModel()), starModel.getFleetModel().getShield());
+            int shipHealth = shipsFight(getShipHealth(ship.getModel()), fleetModel.getShield());
 
             if (shipHealth > 0)
-                shipHealth = shipsFight(getShipHealth(ship.getModel()), starModel.getFleetModel().getTwoShield());
+                shipHealth = shipsFight(getShipHealth(ship.getModel()), fleetModel.getTwoShield());
             if (shipHealth > 0)
-                shipHealth = shipsFight(getShipHealth(ship.getModel()), starModel.getFleetModel().getOneShield());
+                shipHealth = shipsFight(getShipHealth(ship.getModel()), fleetModel.getOneShield());
             if (shipHealth > 0)
-                shipHealth = shipsFight(getShipHealth(ship.getModel()), starModel.getFleetModel().getCruiser());
+                shipHealth = shipsFight(getShipHealth(ship.getModel()), fleetModel.getCruiser());
             if (shipHealth > 0)
-                shipHealth = shipsFight(getShipHealth(ship.getModel()), starModel.getFleetModel().getTwoCruiser());
+                shipHealth = shipsFight(getShipHealth(ship.getModel()), fleetModel.getTwoCruiser());
             if (shipHealth > 0)
-                shipHealth = shipsFight(getShipHealth(ship.getModel()), starModel.getFleetModel().getOneCruiser());
+                shipHealth = shipsFight(getShipHealth(ship.getModel()), fleetModel.getOneCruiser());
             if (shipHealth > 0)
-                shipHealth = shipsFight(getShipHealth(ship.getModel()), starModel.getFleetModel().getRaptor());
+                shipHealth = shipsFight(getShipHealth(ship.getModel()), fleetModel.getRaptor());
             if (shipHealth > 0)
                 setHealth(shipHealth, ship.getModel().getType());
 
         } else
-            setHealth(getShipHealth(ship.getModel()) , ship.getModel().getType());
+            setHealth(getShipHealth(ship.getModel()), ship.getModel().getType());
     }
 
     private int getShipHealth(ShipModel model) {
@@ -66,56 +68,49 @@ public class Fight {
         return shipHealth;
     }
 
-    private void setHealth(int health, int shipType){
+    private void setHealth(int health, int shipType) {
 
         // switch
 
         if (shipType == ShipModel.Constants.Types.CRUISER) {
-            starModel.getFleetModel().getCruiser().setCount(
-                    starModel.getFleetModel().getCruiser().getCount() +
-                            health / ShipModel.Constants.Health.CRUISER);
+            fleetModel.getCruiser().setCount(fleetModel.getCruiser().getCount() +
+                    health / ShipModel.Constants.Health.CRUISER);
             health %= ShipModel.Constants.Health.CRUISER;
             shipType = ShipModel.Constants.Types.TWO_CRUISER;
         }
 
         if (shipType == ShipModel.Constants.Types.TWO_CRUISER) {
-            starModel.getFleetModel().getTwoCruiser().setCount(
-                    starModel.getFleetModel().getCruiser().getCount() +
-                            health / ShipModel.Constants.Health.TWO_CRUISER);
+            fleetModel.getTwoCruiser().setCount(fleetModel.getCruiser().getCount() +
+                    health / ShipModel.Constants.Health.TWO_CRUISER);
             health %= ShipModel.Constants.Health.TWO_CRUISER;
             shipType = ShipModel.Constants.Types.ONE_CRUISER;
         }
 
         if (shipType == ShipModel.Constants.Types.ONE_CRUISER)
-            starModel.getFleetModel().getOneCruiser().setCount(
-                    starModel.getFleetModel().getCruiser().getCount() +
-                            health / ShipModel.Constants.Health.ONE_CRUISER);
+            fleetModel.getOneCruiser().setCount(fleetModel.getCruiser().getCount() +
+                    health / ShipModel.Constants.Health.ONE_CRUISER);
 
         if (shipType == ShipModel.Constants.Types.SHIELD) {
-            starModel.getFleetModel().getShield().setCount(
-                    starModel.getFleetModel().getCruiser().getCount() +
-                            health / ShipModel.Constants.Health.CRUISER);
+            fleetModel.getShield().setCount(fleetModel.getCruiser().getCount() +
+                    health / ShipModel.Constants.Health.CRUISER);
             health %= ShipModel.Constants.Health.SHIELD;
             shipType = ShipModel.Constants.Types.TWO_SHIELD;
         }
 
         if (shipType == ShipModel.Constants.Types.TWO_SHIELD) {
-            starModel.getFleetModel().getTwoShield().setCount(
-                    starModel.getFleetModel().getCruiser().getCount() +
-                            health / ShipModel.Constants.Health.TWO_SHIELD);
+            fleetModel.getTwoShield().setCount(fleetModel.getCruiser().getCount() +
+                    health / ShipModel.Constants.Health.TWO_SHIELD);
             health %= ShipModel.Constants.Health.TWO_SHIELD;
             shipType = ShipModel.Constants.Types.ONE_SHIELD;
         }
 
         if (shipType == ShipModel.Constants.Types.ONE_SHIELD)
-            starModel.getFleetModel().getOneShield().setCount(
-                    starModel.getFleetModel().getCruiser().getCount() +
-                            health / ShipModel.Constants.Health.ONE_SHIELD);
+            fleetModel.getOneShield().setCount(fleetModel.getCruiser().getCount() +
+                    health / ShipModel.Constants.Health.ONE_SHIELD);
 
         if (shipType == ShipModel.Constants.Types.RAPTOR)
-            starModel.getFleetModel().getRaptor().setCount(
-                    starModel.getFleetModel().getCruiser().getCount() +
-                            health / ShipModel.Constants.Health.ONE_SHIELD);
+            fleetModel.getRaptor().setCount(fleetModel.getCruiser().getCount() +
+                    health / ShipModel.Constants.Health.ONE_SHIELD);
     }
 
     private int shipsFight(int fighterHealth, ShipModel model) {

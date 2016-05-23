@@ -12,13 +12,16 @@ import com.mygdx.game.textures.ShipTexturesContainer;
 public class SmallStar extends Star {
 
     private StarModel starModel;
+
     private Array<StarModel> starModels;
+
     private ConditionTextures starTextures;
+    private View view;
+    private FleetManager fleetManager;
+
+
     private ShipTexturesContainer shipsTextures;
 
-    private View view;
-
-    private FleetManager fleetManager;
     private Array<Line> line;
 
     private Mastership mastership;
@@ -33,13 +36,13 @@ public class SmallStar extends Star {
 
         view = new View(starTextures.getTexturesPack(starModel.getSide()), starModel.getCenterPoint(), currentFrame);
 
-
         fleetManager = new FleetManager(starModel, shipsTextures);
 
         line = new Array<Line>();
         for (StarModel model : starModels) {
             line.add(new Line(this, model.getCenterPoint()));
         }
+
     }
 
 
@@ -61,6 +64,11 @@ public class SmallStar extends Star {
     @Override
     public Array<View> getViews() {
         return null;
+    }
+
+    @Override
+    public FleetManager getFleetManager() {
+        return fleetManager;
     }
 
 

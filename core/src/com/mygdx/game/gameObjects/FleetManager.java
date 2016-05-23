@@ -1,5 +1,8 @@
 package com.mygdx.game.gameObjects;
 
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.models.FleetModel;
+import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
@@ -37,6 +40,8 @@ public class FleetManager {
 
     }
 
-
+    public FleetModel getFleetModels(){
+        return starModel.getFleetModel();
+    }
 
 }

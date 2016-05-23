@@ -101,7 +101,7 @@ public class Send {
                 mastership.getModel().getCenterPoint().setPoint(destinationStar.getModel().getCenterPoint());
                 currentStar = destinationStar;
 
-                currentStar.fight(ship);
+                ship.getFight().fight();
             }
         }
     }

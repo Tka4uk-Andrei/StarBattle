@@ -73,4 +73,8 @@ public class View {
     public TexturesPack getTexturesPack(){
         return textures;
     }
+
+    public void setTexturesPack(TexturesPack textures){
+        this.textures = textures;
+    }
 }

@@ -4,11 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.gameObjects.FleetManager;
 import com.mygdx.game.gameObjects.Line;
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
-import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.ConditionTextures;
-import com.mygdx.game.system.Constants;
-import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
 
@@ -37,8 +34,12 @@ public class SmallStar extends Star {
         view = new View(starTextures.getTexturesPack(starModel.getSide()), starModel.getCenterPoint(), currentFrame);
 
 
+        fleetManager = new FleetManager(starModel, shipsTextures);
 
-        fleetManager = new FleetManager();
+        line = new Array<Line>();
+        for (StarModel model : starModels) {
+            line.add(new Line(this, model.getCenterPoint()));
+        }
     }
 
 

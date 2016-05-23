@@ -1,6 +1,5 @@
 package com.mygdx.game.models;
 
-import com.mygdx.game.system.Constants;
 import com.mygdx.game.system.Point;
 
 public class ShipModel {
@@ -11,7 +10,7 @@ public class ShipModel {
     private int type;
     private int count;
 
-    public ShipModel (Point centerPoint, int currentFrame, int side, int type, int count) {
+    public ShipModel(Point centerPoint, int currentFrame, int side, int type, int count) {
 
         this.centerPoint = new Point(centerPoint);
         this.currentFrame = currentFrame;
@@ -20,7 +19,6 @@ public class ShipModel {
         this.count = count;
 
     }
-
 
     public int getSide() {
         return side;
@@ -78,7 +76,7 @@ public class ShipModel {
 
             public static final int COUNT = 7;
         }
-    
+
         public static class Health {
 
             public static final int RAPTOR = 1;

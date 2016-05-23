@@ -14,8 +14,8 @@ public class ConditionTextures {
 
     }
 
-    public TexturesPack getTexturesPack(int i) {
-        switch (i){
+    public TexturesPack getTexturesPack(int side) {
+        switch (side){
             case Constants.Sides.NONE:
                 return none;
             case Constants.Sides.FRIENDLY:

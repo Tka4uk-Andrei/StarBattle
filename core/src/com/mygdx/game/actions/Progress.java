@@ -1,10 +1,8 @@
 package com.mygdx.game.actions;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.system.View;
-import com.mygdx.game.textures.progress.ProgressCircle;
 import com.mygdx.game.textures.progress.ProgressTexture;
 
 public class Progress {
@@ -18,7 +16,7 @@ public class Progress {
     private boolean done;
     private boolean firstDone;
 
-    public Progress (ProgressTexture progressTexture, Star currentStar, Mastership mastership) {
+    public Progress(ProgressTexture progressTexture, Star currentStar, Mastership mastership) {
 
         view = new View(progressTexture, currentStar.getModel().getCenterPoint(), 0);
 

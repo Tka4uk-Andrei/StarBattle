@@ -45,7 +45,6 @@ public class SmallStar extends Star {
 
     }
 
-
     @Override
     public StarModel getModel() {
         return starModel;
@@ -63,7 +62,11 @@ public class SmallStar extends Star {
 
     @Override
     public Array<View> getViews() {
-        return null;
+        Array <View> views = new Array<View>();
+
+        views.add(view);
+
+        return views;
     }
 
     @Override
@@ -71,5 +74,8 @@ public class SmallStar extends Star {
         return fleetManager;
     }
 
+    @Override
+    public void setSide(int side) {
 
+    }
 }

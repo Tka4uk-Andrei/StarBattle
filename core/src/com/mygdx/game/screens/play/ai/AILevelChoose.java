@@ -8,6 +8,8 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
+import com.mygdx.game.models.FleetModel;
+import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.screens.play.PlayScreen;
 import com.mygdx.game.system.Point;
@@ -89,54 +91,60 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
         Array<StarModel> stars = new Array<StarModel>();
 
+        ShipModel shipModel = new ShipModel(new Point(100, 100), 0, 0, 1, 0);
+
+        FleetModel fleetModel = new FleetModel(shipModel, shipModel, shipModel, shipModel,
+                shipModel, shipModel, shipModel);
+
+
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
                 screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 1,
-                new int[]{1, 2, 3}));
+                new int[]{1, 2, 3}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
                 screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 1,
-                new int[]{0, 4, 5}));
+                new int[]{0, 4, 5}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
                 screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
-                new int[]{0, 3, 6, 8}));
+                new int[]{0, 3, 6, 8}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
                 screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
-                new int[]{0, 2, 4, 9}));
+                new int[]{0, 2, 4, 9}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
                 screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
-                new int[]{1, 3, 5, 9, 10}));
+                new int[]{1, 3, 5, 9, 10}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
                 screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
-                new int[]{1, 4, 7, 11}));
+                new int[]{1, 4, 7, 11}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
                 screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 1,
-                new int[]{2}));
+                new int[]{2}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
                 screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 1,
-                new int[]{5}));
+                new int[]{5}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
                 screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
-                new int[]{2, 9}));
+                new int[]{2, 9}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
                 screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
-                new int[]{3, 8, 4, 10}));
+                new int[]{3, 8, 4, 10}, fleetModel));
 
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
                 screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
-                new int[]{4, 9, 11}));
+                new int[]{4, 9, 11}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
                 screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
-                new int[]{5, 10}));
+                new int[]{5, 10}, fleetModel));
 
 
         aiPlay = new AIPlay(gdxGame, this, stars);

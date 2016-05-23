@@ -18,4 +18,6 @@ public abstract class Star {
     public abstract Array<View> getViews();
 
     public abstract FleetManager getFleetManager();
+
+    public abstract void setSide(int side);
 }

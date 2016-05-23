@@ -1,5 +1,6 @@
 package com.mygdx.game.models;
 
+import com.mygdx.game.system.Constants;
 import com.mygdx.game.system.Point;
 
 public class ShipModel {
@@ -8,12 +9,16 @@ public class ShipModel {
     private int currentFrame = 0;
     private Point centerPoint;
     private int type;
+    private int count;
 
-    public ShipModel (Point centerPoint, int currentFrame, int side) {
+    public ShipModel (Point centerPoint, int currentFrame, int side, int type, int count) {
 
         this.centerPoint = new Point(centerPoint);
         this.currentFrame = currentFrame;
         this.side = side;
+        this.type = type;
+        this.count = count;
+
     }
 
 
@@ -39,5 +44,53 @@ public class ShipModel {
 
     public void setCenterPoint(Point centerPoint) {
         this.centerPoint = centerPoint;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public static class Constants {
+
+        public static class Types {
+
+            public static final int RAPTOR = 1;
+
+            public static final int SHIELD = 2;
+            public static final int TWO_SHIELD = 3;
+            public static final int ONE_SHIELD = 4;
+
+            public static final int CRUISER = 5;
+            public static final int TWO_CRUISER = 6;
+            public static final int ONE_CRUISER = 7;
+
+            public static final int COUNT = 7;
+        }
+    
+        public static class Health {
+
+            public static final int RAPTOR = 1;
+
+            public static final int SHIELD = 3;
+            public static final int TWO_SHIELD = 2;
+            public static final int ONE_SHIELD = 1;
+
+            public static final int CRUISER = 3;
+            public static final int TWO_CRUISER = 2;
+            public static final int ONE_CRUISER = 1;
+        }
+
     }
 }

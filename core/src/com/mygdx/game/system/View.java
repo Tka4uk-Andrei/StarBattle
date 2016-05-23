@@ -54,7 +54,23 @@ public class View {
         return textures.getTextures().get(currentFrame);
     }
 
+    public void setRotation(float rotation){
+        this.rotation = rotation;
+    }
+
     public float getRotation(){
         return rotation;
+    }
+
+    public void setCurrentFrame(int currentFrame) {
+        this.currentFrame = currentFrame;
+    }
+
+    public int getCurrentFrame (){
+        return currentFrame;
+    }
+
+    public TexturesPack getTexturesPack(){
+        return textures;
     }
 }

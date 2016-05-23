@@ -3,20 +3,17 @@ package com.mygdx.game.textures.progress;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.system.TexturesPack;
 
-public class ProgressCircle {
+public class ProgressTexture extends TexturesPack {
 
-    private Texture circle[];
-    private int currentFrame;
-    private long time;
+    private Array<Texture> textures;
     private int frameTime;
 
-    private boolean done;
-    private boolean firstDone;
+    public ProgressTexture(int frameCount, int sizeXY, Color color, int lineWidth, int animationTime) {
 
-    public ProgressCircle(int frameCount, int sizeXY, Color color, int lineWidth, int frameTime) {
-
-        circle = new Texture[frameCount];
+        textures = new Array<Texture>();
 
         int width = sizeXY - 20;
 
@@ -36,36 +33,27 @@ public class ProgressCircle {
             pixmap.fillCircle((int) x, (int) y, lineWidth);
 
             if ((x - x0 == 0) || (Math.toDegrees(Math.atan((y - y0) / Math.abs(x - x0))) + 90 >= (deltaDegree * j))) {
-                circle[j] = new Texture(pixmap);
+                textures.add(new Texture(pixmap));
                 j++;
             }
         }
 
         for (float y = width + 10; y >= 10; y -= .01) {
-
             x = (float) -Math.sqrt(Math.pow(width / 2, 2) - Math.pow(y - y0, 2)) + x0;
-
             pixmap.fillCircle((int) x, (int) y, lineWidth);
-
             if ((x - x0) == 0 || Math.toDegrees(Math.atan((y - y0) / (x - x0))) + 270 >= deltaDegree * j) {
-                circle[j] = new Texture(pixmap);
+                textures.add(new Texture(pixmap));
                 j++;
             }
         }
 
         pixmap.dispose();
-
-        currentFrame = 0;
-        time = System.currentTimeMillis();
-        this.frameTime = frameTime;
-
-        done = false;
-        firstDone = true;
+        frameTime = animationTime / textures.size;
     }
 
-    public ProgressCircle(int frameCount, int sizeXY, Color color, int frameTime) {
+    public ProgressTexture(int frameCount, int sizeXY, Color color, int animationTime) {
 
-        circle = new Texture[frameCount];
+        textures = new Array<Texture>();
 
         int width = sizeXY - 20;
 
@@ -79,79 +67,41 @@ public class ProgressCircle {
         pixmap.setColor(color);
 
         for (float y = 10; y <= width + 10; y += .005) {
-
             x = (float) Math.sqrt(Math.pow(width / 2, 2) - Math.pow(y - y0, 2)) + x0;
-
             pixmap.drawPixel((int) x, (int) y);
 
             if ((x - x0 == 0) || (Math.toDegrees(Math.atan((y - y0) / Math.abs(x - x0))) + 90 >= (deltaDegree * j))) {
-                circle[j] = new Texture(pixmap);
+                textures.add(new Texture(pixmap));
                 j++;
             }
         }
 
         for (float y = width + 10; y >= 10; y -= .005) {
-
             x = (float) -Math.sqrt(Math.pow(width / 2, 2) - Math.pow(y - y0, 2)) + x0;
-
             pixmap.drawPixel((int) x, (int) y);
 
             if ((x - x0) == 0 || Math.toDegrees(Math.atan((y - y0) / (x - x0))) + 270 >= deltaDegree * j) {
-                circle[j] = new Texture(pixmap);
+                textures.add(new Texture(pixmap));
                 j++;
             }
         }
 
         pixmap.dispose();
-
-        currentFrame = 0;
-        time = System.currentTimeMillis();
-        this.frameTime = frameTime;
+        frameTime = animationTime / textures.size;
     }
 
-    private void update() {
-        if (System.currentTimeMillis() - time >= frameTime) {
-            time = System.currentTimeMillis();
-            currentFrame = (currentFrame + 1) % circle.length;
-        }
-
-        if (currentFrame == (circle.length - 1) && firstDone) {
-            done = true;
-            firstDone = false;
-        } else {
-            done = false;
-            if (currentFrame != (circle.length - 1))
-                firstDone = true;
-        }
+    @Override
+    public Array<Texture> getTextures() {
+        return textures;
     }
 
-    public int getLength() {
-        return circle.length;
+    @Override
+    public int getFrameTime() {
+        return frameTime;
     }
 
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public int getCurrentFrame() {
-        return currentFrame;
-    }
-
-    public void setCurrentFrame(int currentFrame) {
-        this.currentFrame = currentFrame;
-    }
-
-    public Texture getFrame() {
-        update();
-
-        return circle[currentFrame];
-    }
-
-    public void dispose() {
-        for (Texture aCircle : circle) aCircle.dispose();
-    }
-
-    public boolean isDone() {
-        return done;
+    @Override
+    public float getDeltaDegree() {
+        return 0;
     }
 }

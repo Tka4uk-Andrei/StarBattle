@@ -9,10 +9,14 @@ public class StarModel {
     private Point centerPoint;
     private int type;
     private int connectedStars[];
+    private FleetModel fleetModel;
 
-    public StarModel(Point centerPoint, int currentFrame, int type, int[] connectedStars) {
+    public StarModel(Point centerPoint, int currentFrame, int type, int[] connectedStars, FleetModel fleetModel) {
         this.centerPoint = new Point(centerPoint);
         this.currentFrame = currentFrame;
+        this.connectedStars = connectedStars;
+        this.fleetModel = fleetModel;
+        this.type = type;
     }
 
     public int getSide() {
@@ -37,5 +41,29 @@ public class StarModel {
 
     public void setCurrentFrame(int currentFrame) {
         this.currentFrame = currentFrame;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int[] getConnectedStars() {
+        return connectedStars;
+    }
+
+    public void setConnectedStars(int[] connectedStars) {
+        this.connectedStars = connectedStars;
+    }
+
+    public FleetModel getFleetModel() {
+        return fleetModel;
+    }
+
+    public void setFleetModel(FleetModel fleetModel) {
+        this.fleetModel = fleetModel;
     }
 }

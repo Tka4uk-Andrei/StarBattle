@@ -52,4 +52,11 @@ public class StarTextureContainer {
     public ConditionTextures getAdvancedFactoryStar() {
         return advancedFactoryStar;
     }
+
+    public void dispose() {
+        smallStar.dispose();
+        mineStar.dispose();
+        factoryStar.dispose();
+        advancedFactoryStar.dispose();
+    }
 }

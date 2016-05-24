@@ -34,4 +34,10 @@ public class ShieldTextureFriendly extends TexturesPack {
 
         public static float DELTA_DEGREE = 3;
     }
+
+    @Override
+    public void dispose() {
+        for (Texture texture : textures)
+            texture.dispose();
+    }
 }

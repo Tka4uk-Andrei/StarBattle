@@ -76,9 +76,6 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
         batch.dispose();
     }
 
-
-
-
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
 
@@ -104,15 +101,15 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
                 new int[]{1, 2, 3}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
-                screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 1,
+                screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 2,
                 new int[]{0, 4, 5}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
-                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 3,
                 new int[]{0, 3, 6, 8}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
-                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 4,
                 new int[]{0, 2, 4, 9}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
@@ -120,15 +117,15 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
                 new int[]{1, 3, 5, 9, 10}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
-                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 2,
                 new int[]{1, 4, 7, 11}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
-                screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 1,
+                screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 3,
                 new int[]{2}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
-                screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 1,
+                screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 4,
                 new int[]{5}, fleetModel));
 
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,

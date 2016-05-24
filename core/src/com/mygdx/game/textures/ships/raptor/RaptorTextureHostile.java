@@ -34,4 +34,10 @@ public class RaptorTextureHostile extends TexturesPack {
 
         public static float DELTA_DEGREE = -1;
     }
+
+    @Override
+    public void dispose() {
+        for (Texture texture : textures)
+            texture.dispose();
+    }
 }

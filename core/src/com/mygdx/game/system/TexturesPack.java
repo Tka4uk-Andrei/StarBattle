@@ -10,4 +10,6 @@ public abstract class TexturesPack {
     public abstract int getFrameTime();
 
     public abstract float getDeltaDegree();
+
+    public abstract void dispose();
 }

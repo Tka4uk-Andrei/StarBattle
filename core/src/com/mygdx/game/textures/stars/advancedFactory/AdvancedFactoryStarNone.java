@@ -36,4 +36,9 @@ public class AdvancedFactoryStarNone extends TexturesPack {
 
         public static float DELTA_DEGREE = 0;
     }
+
+    public void dispose() {
+        for (Texture texture : textures)
+            texture.dispose();
+    }
 }

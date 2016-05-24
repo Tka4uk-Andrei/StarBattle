@@ -104,4 +104,10 @@ public class ProgressTexture extends TexturesPack {
     public float getDeltaDegree() {
         return 0;
     }
+
+    @Override
+    public void dispose() {
+        for (Texture texture : textures)
+            texture.dispose();
+    }
 }

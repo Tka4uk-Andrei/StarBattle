@@ -66,4 +66,15 @@ public class StarModel {
     public void setFleetModel(FleetModel fleetModel) {
         this.fleetModel = fleetModel;
     }
+
+    public static class Constants {
+
+        public static class Types {
+            public static final int SMALL = 1;
+            public static final int MINE = 2;
+            public static final int FACTORY = 3;
+            public static final int ADVANCED_FACTORY = 4;
+        }
+
+    }
 }

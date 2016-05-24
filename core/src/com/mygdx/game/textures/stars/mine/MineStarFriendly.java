@@ -36,4 +36,10 @@ public class MineStarFriendly extends TexturesPack {
 
         public static float DELTA_DEGREE = 0;
     }
+
+    @Override
+    public void dispose() {
+        for (Texture texture : textures)
+            texture.dispose();
+    }
 }

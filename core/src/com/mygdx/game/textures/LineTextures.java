@@ -28,6 +28,12 @@ public class LineTextures extends TexturesPack {
         return Constants.DELTA_DEGREE;
     }
 
+    @Override
+    public void dispose() {
+        for (Texture texture : textures)
+            texture.dispose();
+    }
+
     private static class Constants {
 
         public static final int FRAME_TIME = 10000;

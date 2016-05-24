@@ -40,6 +40,15 @@ public class ShipTexturesContainer {
     }
 
 
+    public void dispose() {
+        raptor.dispose();
+        shield.dispose();
+        twoCruiser.dispose();
+        twoShield.dispose();
+        oneCruiser.dispose();
+        oneShield.dispose();
+    }
+
     public ConditionTextures getRaptor() {
         return raptor;
     }

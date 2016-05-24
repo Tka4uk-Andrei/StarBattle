@@ -3,11 +3,15 @@ package com.mygdx.game.screens.play.ai;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
+import com.mygdx.game.gameObjects.stars.AdvancedFactory;
+import com.mygdx.game.gameObjects.stars.FactoryStar;
+import com.mygdx.game.gameObjects.stars.MineStar;
 import com.mygdx.game.gameObjects.stars.SmallStar;
 import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.models.StarModel;
@@ -22,6 +26,10 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
     private AILevelChoose aiLevelChoose;
     private Array<Star> stars;
 
+    private Texture background;
+    private StarTextureContainer starTextureContainer;
+    private ShipTexturesContainer shipTexturesContainer;
+
     public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose, Array<StarModel> starModels) {
 
         this.gdxGame = gdxGame;
@@ -31,13 +39,32 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
         Gdx.input.setInputProcessor(new GestureDetector(this));
 
-        StarTextureContainer starTextureContainer = new StarTextureContainer();
-        ShipTexturesContainer shipTexturesContainer = new ShipTexturesContainer();
+        background = new Texture("Background.png");
+
+        starTextureContainer = new StarTextureContainer();
+        shipTexturesContainer = new ShipTexturesContainer();
 
         stars = new Array<Star>();
-        for (int i = 0; i < starModels.size; ++i)
-            stars.add(new SmallStar(starModels.get(i), starTextureContainer.getSmallStar(),
-                    shipTexturesContainer, starModels, 0));
+        for (int i = 0; i < starModels.size; ++i) {
+            switch (starModels.get(i).getType()){
+                case StarModel.Constants.Types.SMALL :
+                    stars.add(new SmallStar(starModels.get(i), starTextureContainer.getSmallStar(),
+                            shipTexturesContainer, starModels, 0));
+                    break;
+                case StarModel.Constants.Types.FACTORY :
+                    stars.add(new FactoryStar(starModels.get(i), starTextureContainer.getFactoryStar(),
+                            shipTexturesContainer, starModels, 0));
+                    break;
+                case StarModel.Constants.Types.MINE :
+                    stars.add(new MineStar(starModels.get(i), starTextureContainer.getMineStar(),
+                            shipTexturesContainer, starModels, 0));
+                    break;
+                case StarModel.Constants.Types.ADVANCED_FACTORY :
+                    stars.add(new AdvancedFactory(starModels.get(i), starTextureContainer.getAdvancedFactoryStar(),
+                            shipTexturesContainer, starModels, 0));
+                    break;
+            }
+        }
     }
 
     @Override
@@ -51,6 +78,7 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+
         for (Star star : stars) {
             for (View view : star.getViews())
                 batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
@@ -85,7 +113,9 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        starTextureContainer.dispose();
+        shipTexturesContainer.dispose();
     }
 
 

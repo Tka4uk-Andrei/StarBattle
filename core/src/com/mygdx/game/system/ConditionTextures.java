@@ -27,4 +27,9 @@ public class ConditionTextures {
         }
     }
 
+    public void dispose(){
+        none.dispose();
+        friendly.dispose();
+        hostile.dispose();
+    }
 }

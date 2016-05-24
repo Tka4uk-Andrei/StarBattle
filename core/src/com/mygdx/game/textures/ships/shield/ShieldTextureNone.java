@@ -24,6 +24,12 @@ public class ShieldTextureNone extends TexturesPack {
         return Constants.DELTA_DEGREE;
     }
 
+    @Override
+    public void dispose() {
+        for (Texture texture : textures)
+            texture.dispose();
+    }
+
     private static class Constants {
 
         public static final String DIR = "Shield/none/";

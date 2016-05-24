@@ -7,33 +7,14 @@ import com.mygdx.game.system.View;
 
 public class AdvancedFactory extends Star {
 
+
     @Override
-    public StarModel getModel() {
+    public BasicStar getBasicStar() {
         return null;
-    }
-
-    @Override
-    public boolean isBlocked() {
-        return false;
-    }
-
-    @Override
-    public void onTouch() {
-
     }
 
     @Override
     public Array<View> getViews() {
         return null;
-    }
-
-    @Override
-    public FleetManager getFleetManager() {
-        return null;
-    }
-
-    @Override
-    public void setSide(int side) {
-
     }
 }

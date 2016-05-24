@@ -18,7 +18,7 @@ public class Progress {
 
     public Progress(ProgressTexture progressTexture, Star currentStar, Mastership mastership) {
 
-        view = new View(progressTexture, currentStar.getModel().getCenterPoint(), 0);
+        view = new View(progressTexture, currentStar.getBasicStar().getModel().getCenterPoint(), 0);
 
         this.mastership = mastership;
     }

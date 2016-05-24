@@ -53,11 +53,11 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         batch.begin();
         for (Star star : stars) {
             for (View view : star.getViews())
-            batch.draw(view.getFrame(), view.getRenderPoint().getX(), view.getRenderPoint().getY(),
-                    view.getOriginPoint().getX(), view.getOriginPoint().getY(),
-                    view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
-                    view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
-                    false, false);
+                batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
+                        (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                        view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
+                        view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                        false, false);
         }
         batch.end();
 

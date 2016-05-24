@@ -35,17 +35,17 @@ public class Send {
         if (isSande())
             return;
 
-        vectorX = (destinationStar.getModel().getCenterPoint().getX() -
-                currentStar.getModel().getCenterPoint().getX()) / Constants.JUMP_TIME;
-        vectorY = (destinationStar.getModel().getCenterPoint().getY() -
-                currentStar.getModel().getCenterPoint().getY()) / Constants.JUMP_TIME;
+        vectorX = (destinationStar.getBasicStar().getModel().getCenterPoint().getX() -
+                currentStar.getBasicStar().getModel().getCenterPoint().getX()) / Constants.JUMP_TIME;
+        vectorY = (destinationStar.getBasicStar().getModel().getCenterPoint().getY() -
+                currentStar.getBasicStar().getModel().getCenterPoint().getY()) / Constants.JUMP_TIME;
 
         timeSend = System.currentTimeMillis();
 
         float rotation = (float) Math.toDegrees(
-                Math.atan((destinationStar.getModel().getCenterPoint().getY() - currentStar.getModel().getCenterPoint().getY()) /
-                        (destinationStar.getModel().getCenterPoint().getX() - currentStar.getModel().getCenterPoint().getX())));
-        if (destinationStar.getModel().getCenterPoint().getX() >= currentStar.getModel().getCenterPoint().getX())
+                Math.atan((destinationStar.getBasicStar().getModel().getCenterPoint().getY() - currentStar.getBasicStar().getModel().getCenterPoint().getY()) /
+                        (destinationStar.getBasicStar().getModel().getCenterPoint().getX() - currentStar.getBasicStar().getModel().getCenterPoint().getX())));
+        if (destinationStar.getBasicStar().getModel().getCenterPoint().getX() >= currentStar.getBasicStar().getModel().getCenterPoint().getX())
             rotation += 270;
         else
             rotation += 90;
@@ -63,42 +63,42 @@ public class Send {
         if (ship == null) {
 
             mastership.getModel().getCenterPoint().setX(
-                    currentStar.getModel().getCenterPoint().getX() +
+                    currentStar.getBasicStar().getModel().getCenterPoint().getX() +
                             vectorX * (timeSend - System.currentTimeMillis())
             );
 
             mastership.getModel().getCenterPoint().setY(
-                    currentStar.getModel().getCenterPoint().getY() +
+                    currentStar.getBasicStar().getModel().getCenterPoint().getY() +
                             vectorY * (timeSend - System.currentTimeMillis())
             );
 
-            if (destinationStar.getModel().getCenterPoint().
+            if (destinationStar.getBasicStar().getModel().getCenterPoint().
                     inRectRangeThatPoint(mastership.getModel().getCenterPoint(), 5, 5) ||
                     timeSend + Constants.JUMP_TIME >= System.currentTimeMillis()){
                 vectorX = 0;
                 vectorY = 0;
-                mastership.getModel().getCenterPoint().setPoint(destinationStar.getModel().getCenterPoint());
+                mastership.getModel().getCenterPoint().setPoint(destinationStar.getBasicStar().getModel().getCenterPoint());
                 currentStar = destinationStar;
             }
 
         } else {
 
             ship.getModel().getCenterPoint().setX(
-                    currentStar.getModel().getCenterPoint().getX() +
+                    currentStar.getBasicStar().getModel().getCenterPoint().getX() +
                             vectorX * (timeSend - System.currentTimeMillis())
             );
 
             ship.getModel().getCenterPoint().setY(
-                    currentStar.getModel().getCenterPoint().getY() +
+                    currentStar.getBasicStar().getModel().getCenterPoint().getY() +
                             vectorY * (timeSend - System.currentTimeMillis())
             );
 
-            if (destinationStar.getModel().getCenterPoint().
+            if (destinationStar.getBasicStar().getModel().getCenterPoint().
                     inRectRangeThatPoint(ship.getModel().getCenterPoint(), 5, 5) ||
                     timeSend + Constants.JUMP_TIME >= System.currentTimeMillis()){
                 vectorX = 0;
                 vectorY = 0;
-                mastership.getModel().getCenterPoint().setPoint(destinationStar.getModel().getCenterPoint());
+                mastership.getModel().getCenterPoint().setPoint(destinationStar.getBasicStar().getModel().getCenterPoint());
                 currentStar = destinationStar;
 
                 ship.getFight().fight();

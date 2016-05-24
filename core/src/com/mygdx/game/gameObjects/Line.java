@@ -3,16 +3,17 @@ package com.mygdx.game.gameObjects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.gameObjects.stars.Star;
+import com.mygdx.game.gameObjects.stars.BasicStar;
 import com.mygdx.game.system.Constants;
 import com.mygdx.game.system.Point;
 import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.LineTextures;
+import com.sun.corba.se.impl.interceptors.PICurrent;
 
 public class Line {
 
-    private Star star;
+    private BasicStar star;
 
     private View view;
 
@@ -20,7 +21,7 @@ public class Line {
     private TexturesPack friendly;
     private TexturesPack hostile;
 
-    public Line(Star star, Point destinationStar) {
+    public Line(BasicStar star, Point destinationStar) {
 
         this.star = star;
 
@@ -28,25 +29,63 @@ public class Line {
         friendly = new LineTextures(getLineTexture(star, Constants.Colors.friendly, destinationStar));
         hostile = new LineTextures(getLineTexture(star, Constants.Colors.hostile, destinationStar));
 
-        view = new View(none, star.getModel().getCenterPoint(), 0);
+        view = new View(none, new Point(
+                star.getModel().getCenterPoint().getX()
+                        + (destinationStar.getX() - star.getModel().getCenterPoint().getX()) / 4,
+                star.getModel().getCenterPoint().getY()
+                        + (destinationStar.getY() - star.getModel().getCenterPoint().getY()) / 4), 0);
 
         updateSide();
     }
 
-    public static Texture getLineTexture(Star star, Color color, Point destinationStar) {
+    public static Texture test(BasicStar star, Color color, Point destinationStar) {
+
+        Pixmap pixmap = new Pixmap(50, 53, Pixmap.Format.RGBA8888);
+
+        pixmap.setColor(color);
+
+
+        pixmap.drawLine(1, 1, 5, 50);
+
+        Texture line = new Texture(pixmap);
+
+        pixmap.dispose();
+        return line;
+    }
+
+    public static Texture getLineTexture(BasicStar star, Color color, Point destinationStar) {
 
         Pixmap pixmap = new Pixmap(
                 (int) (Math.max(star.getModel().getCenterPoint().getX(), destinationStar.getX()) -
-                        Math.min(star.getModel().getCenterPoint().getX(), destinationStar.getX())),
+                        Math.min(star.getModel().getCenterPoint().getX(), destinationStar.getX())) / 2 + 1,
 
                 (int) (Math.max(star.getModel().getCenterPoint().getY(), destinationStar.getY()) -
-                        Math.min(star.getModel().getCenterPoint().getY(), destinationStar.getY())),
+                        Math.min(star.getModel().getCenterPoint().getY(), destinationStar.getY())) / 2 + 1,
 
                 Pixmap.Format.RGBA8888);
 
         pixmap.setColor(color);
-        pixmap.drawLine((int) star.getModel().getCenterPoint().getX(), (int) star.getModel().getCenterPoint().getY(),
-                (int) destinationStar.getX() / 2, (int) destinationStar.getY() / 2);
+
+        Point start = new Point();
+        Point end = new Point();
+
+        if (star.getModel().getCenterPoint().getX() < destinationStar.getX()) {
+            start.setX(0);
+            end.setX(pixmap.getWidth() - 1);
+        } else {
+            start.setX(pixmap.getWidth() - 1);
+            end.setX(0);
+        }
+
+        if (star.getModel().getCenterPoint().getY() < destinationStar.getY()) {
+            start.setY(pixmap.getHeight() - 1);
+            end.setY(0);
+        } else {
+            start.setY(0);
+            end.setY(pixmap.getHeight() - 1);
+        }
+
+        pixmap.drawLine((int) start.getX(), (int) start.getY(), (int) end.getX(), (int) end.getY());
 
         Texture line = new Texture(pixmap);
 

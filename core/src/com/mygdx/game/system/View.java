@@ -16,8 +16,8 @@ public class View {
         time = System.currentTimeMillis();
         textures = texturesPack;
         this.currentFrame = currentFrame;
-        renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth(),
-                centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight());
+        renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
+                centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
         originPoint = new Point(centerPoint);
     }
 
@@ -75,6 +75,12 @@ public class View {
     }
 
     public void setTexturesPack(TexturesPack textures){
+//        renderPoint.setX(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getWidth() / 2);
+//        renderPoint.setY(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getHeight() / 2);
+
         this.textures = textures;
+
+//        renderPoint.setX(getRenderPoint().getX() - this.textures.getTextures().get(currentFrame).getWidth() / 2);
+//        renderPoint.setY(getRenderPoint().getX() - this.textures.getTextures().get(currentFrame).getHeight() / 2);
     }
 }

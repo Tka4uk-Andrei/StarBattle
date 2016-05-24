@@ -37,14 +37,7 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
         Gdx.input.setInputProcessor(new GestureDetector(this));
 
-        screenHeight = Gdx.graphics.getHeight();
-        screenWidth = Gdx.graphics.getWidth();
 
-        int mapWidth = 6;
-        int mapHeight = 4;
-
-        px = (screenWidth - 128 - 64) / (mapWidth * 2);
-        py = (screenHeight - 64) / (mapHeight * 2);
     }
 
     @Override
@@ -97,6 +90,15 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
                 shipModel, shipModel, shipModel);
 
 
+        screenHeight = Gdx.graphics.getHeight();
+        screenWidth = Gdx.graphics.getWidth();
+
+        int mapWidth = 6;
+        int mapHeight = 4;
+
+        px = (screenWidth - 128 - 128) / (mapWidth * 2);
+        py = (screenHeight - 128) / (mapHeight * 2);
+
         stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
                 screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 1,
                 new int[]{1, 2, 3}, fleetModel));
@@ -109,11 +111,11 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
                 screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
                 new int[]{0, 3, 6, 8}, fleetModel));
 
-        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
                 screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
                 new int[]{0, 2, 4, 9}, fleetModel));
 
-        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
+        stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
                 screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
                 new int[]{1, 3, 5, 9, 10}, fleetModel));
 

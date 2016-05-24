@@ -12,10 +12,8 @@ public class SmallStar extends Star {
 
     public SmallStar(StarModel starModel, ConditionTextures starTextures,
                      ShipTexturesContainer shipsTextures, Array<StarModel> starModels, int currentFrame) {
-
         basicStar = new BasicStar(starModel, starTextures, shipsTextures, starModels, currentFrame);
     }
-
 
     @Override
     public BasicStar getBasicStar() {
@@ -27,5 +25,10 @@ public class SmallStar extends Star {
         Array<View> views = basicStar.getViews();
 
         return views;
+    }
+
+    @Override
+    public void onTouch() {
+
     }
 }

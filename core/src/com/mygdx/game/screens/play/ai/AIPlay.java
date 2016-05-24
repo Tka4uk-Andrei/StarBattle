@@ -78,7 +78,8 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-
+        batch.draw(background, 0, 0, 0, 0, background.getWidth(), background.getHeight(),
+                1, 1, 0, 0, 0, background.getWidth(), background.getHeight(), false, false);
         for (Star star : stars) {
             for (View view : star.getViews())
                 batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),

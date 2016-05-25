@@ -72,19 +72,13 @@ public class FriendlyMastership extends Mastership {
         Array<View> views = new Array<View>();
 
         send.update();
-        update();
-
-        if (focusFlag) {
-            views.add(focusView);
-        }
-
-        if (send.isSande() || star.getBasicStar().getModel().getSide() == Constants.Sides.FRIENDLY)
-            progress.setTime(System.currentTimeMillis());
-        else {
-            if (progress.isDone())
-                star.getBasicStar().setSide((star.getBasicStar().getModel().getSide() + 1) % 3);
+        if (updateProgress()) {
             views.add(progress.getView());
         }
+
+
+        if (focusFlag)
+            views.add(focusView);
 
         view.update(send.isSande());
         views.add(view);
@@ -92,19 +86,22 @@ public class FriendlyMastership extends Mastership {
         return views;
     }
 
-    private void update() {
+    private boolean updateProgress() {
 
         if (send.isSande() || star.getBasicStar().getModel().getSide() == Constants.Sides.FRIENDLY) {
             progress.setTime(System.currentTimeMillis());
             progress.setCurrentFrame(0);
-        } else {
-            if (progress.isDone()) {
-                star.getBasicStar().setSide((star.getBasicStar().getModel().getSide() + 1) % 4);
-                progress.setCurrentFrame(0);
-                progress.setTime(System.currentTimeMillis());
-            }
+            return false;
         }
 
+        if (progress.isDone()) {
+            star.getBasicStar().setSide((star.getBasicStar().getModel().getSide() + 1) % 4);
+            progress.setCurrentFrame(0);
+            progress.setTime(System.currentTimeMillis());
+            return false;
+        }
+
+        return true;
     }
 
     @Override

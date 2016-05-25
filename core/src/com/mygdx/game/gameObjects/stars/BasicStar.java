@@ -47,10 +47,6 @@ public class BasicStar {
         return starModel;
     }
 
-    public boolean isBlocked() {
-        return false;
-    }
-
     public void onTouch() {
 
     }
@@ -78,11 +74,23 @@ public class BasicStar {
 
         starModel.setSide(side);
 
+        view.setTexturesPack(starTextures.getTexturesPack(side));
+
         for (int i = 0; i < lines.size; ++i)
             lines.get(i).updateSide();
 
 
 
     }
+
+    public Mastership getMastership() {
+        return mastership;
+    }
+
+    public void setMastership(Mastership mastership) {
+        this.mastership = mastership;
+    }
+
+//    public void
 
 }

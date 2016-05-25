@@ -1,30 +1,28 @@
 package com.mygdx.game.actions;
 
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
-import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.progress.ProgressTexture;
 
 public class Progress {
 
     private View view;
-    private Mastership mastership;
-
-    private int currentFrame;
-    private long time;
 
     private boolean done;
     private boolean firstDone;
 
-    public Progress(ProgressTexture progressTexture, Star currentStar, Mastership mastership) {
+    private Mastership mastership;
 
-        view = new View(progressTexture, currentStar.getBasicStar().getModel().getCenterPoint(), 0);
+    public Progress(ProgressTexture progressTexture, Mastership mastership) {
 
         this.mastership = mastership;
+
+        view = new View(progressTexture, mastership.getModel().getCenterPoint(), 0);
     }
 
     private void update() {
 
+        view.setRenderPoint(mastership.getModel().getCenterPoint());
         view.update(false);
 
         if (view.getCurrentFrame() == (view.getTexturesPack().getTextures().size - 1) && firstDone) {
@@ -32,7 +30,7 @@ public class Progress {
             firstDone = false;
         } else {
             done = false;
-            if (currentFrame != (view.getTexturesPack().getTextures().size - 1))
+            if (view.getCurrentFrame() != (view.getTexturesPack().getTextures().size - 1))
                 firstDone = true;
         }
     }
@@ -42,19 +40,26 @@ public class Progress {
     }
 
     public void setTime(long time) {
-        this.time = time;
+        view.setTime(time);
     }
 
     public int getCurrentFrame() {
-        return currentFrame;
+        return view.getCurrentFrame();
     }
 
     public void setCurrentFrame(int currentFrame) {
-        this.currentFrame = currentFrame;
+        view.setCurrentFrame(currentFrame);
     }
 
     public boolean isDone() {
+        update();
         return done;
+    }
+
+    public View getView() {
+
+        update();
+        return view;
     }
 
 }

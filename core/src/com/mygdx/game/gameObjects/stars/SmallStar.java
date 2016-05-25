@@ -31,4 +31,6 @@ public class SmallStar extends Star {
     public void onTouch() {
 
     }
+
+
 }

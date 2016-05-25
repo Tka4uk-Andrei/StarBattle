@@ -9,7 +9,6 @@ import com.mygdx.game.system.Point;
 import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.LineTextures;
-import com.sun.corba.se.impl.interceptors.PICurrent;
 
 public class Line {
 

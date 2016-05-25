@@ -5,7 +5,7 @@ import com.mygdx.game.system.Point;
 public class ShipModel {
 
     private int side = 0;
-    private int currentFrame = 0;
+//    private int currentFrame = 0;
     private Point centerPoint;
     private int type;
     private int count;
@@ -13,7 +13,7 @@ public class ShipModel {
     public ShipModel(Point centerPoint, int currentFrame, int side, int type, int count) {
 
         this.centerPoint = new Point(centerPoint);
-        this.currentFrame = currentFrame;
+//        this.currentFrame = currentFrame;
         this.side = side;
         this.type = type;
         this.count = count;
@@ -28,13 +28,13 @@ public class ShipModel {
         this.side = side;
     }
 
-    public int getCurrentFrame() {
-        return currentFrame;
-    }
+//    public int getCurrentFrame() {
+//        return currentFrame;
+//    }
 
-    public void setCurrentFrame(int currentFrame) {
-        this.currentFrame = currentFrame;
-    }
+//    public void setCurrentFrame(int currentFrame) {
+//        this.currentFrame = currentFrame;
+//    }
 
     public Point getCenterPoint() {
         return centerPoint;

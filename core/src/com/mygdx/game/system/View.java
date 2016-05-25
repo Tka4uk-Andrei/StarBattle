@@ -12,6 +12,15 @@ public class View {
 
     private int currentFrame;
 
+    public View(TexturesPack texturesPack, Point centerPoint, Point originPoint, int currentFrame) {
+        time = System.currentTimeMillis();
+        textures = texturesPack;
+        this.currentFrame = currentFrame;
+        renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
+                centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
+        this.originPoint = new Point(originPoint);
+    }
+
     public View(TexturesPack texturesPack, Point centerPoint, int currentFrame) {
         time = System.currentTimeMillis();
         textures = texturesPack;
@@ -41,40 +50,45 @@ public class View {
         this.originPoint = originPoint;
     }
 
+    public void setOriginPointInCenter() {
+        originPoint.setX(textures.getTextures().get(currentFrame).getWidth() / 2);
+        originPoint.setY(textures.getTextures().get(currentFrame).getHeight() / 2);
+    }
+
     public Point getRenderPoint() {
         return renderPoint;
     }
 
     public void setRenderPoint(Point centerPoint) {
-        renderPoint.setX(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth());
-        renderPoint.setY(centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight());
+        renderPoint.setX(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2);
+        renderPoint.setY(centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
     }
 
-    public Texture getFrame(){
+    public Texture getFrame() {
         return textures.getTextures().get(currentFrame);
     }
 
-    public void setRotation(float rotation){
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotation) {
         this.rotation = rotation;
     }
 
-    public float getRotation(){
-        return rotation;
+    public int getCurrentFrame() {
+        return currentFrame;
     }
 
     public void setCurrentFrame(int currentFrame) {
         this.currentFrame = currentFrame;
     }
 
-    public int getCurrentFrame (){
-        return currentFrame;
-    }
-
-    public TexturesPack getTexturesPack(){
+    public TexturesPack getTexturesPack() {
         return textures;
     }
 
-    public void setTexturesPack(TexturesPack textures){
+    public void setTexturesPack(TexturesPack textures) {
 //        renderPoint.setX(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getWidth() / 2);
 //        renderPoint.setY(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getHeight() / 2);
 
@@ -82,5 +96,9 @@ public class View {
 
 //        renderPoint.setX(getRenderPoint().getX() - this.textures.getTextures().get(currentFrame).getWidth() / 2);
 //        renderPoint.setY(getRenderPoint().getX() - this.textures.getTextures().get(currentFrame).getHeight() / 2);
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

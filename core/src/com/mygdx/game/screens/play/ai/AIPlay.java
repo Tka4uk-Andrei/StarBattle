@@ -9,12 +9,15 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
+import com.mygdx.game.gameObjects.ships.mastership.FriendlyMastership;
+import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.gameObjects.stars.AdvancedFactory;
 import com.mygdx.game.gameObjects.stars.FactoryStar;
 import com.mygdx.game.gameObjects.stars.MineStar;
 import com.mygdx.game.gameObjects.stars.SmallStar;
 import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.models.StarModel;
+import com.mygdx.game.system.Point;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
 import com.mygdx.game.textures.StarTextureContainer;
@@ -24,7 +27,9 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
     private SpriteBatch batch;
     private GdxGame gdxGame;
     private AILevelChoose aiLevelChoose;
+
     private Array<Star> stars;
+    private FriendlyMastership friendlyMastership;
 
     private Texture background;
     private StarTextureContainer starTextureContainer;
@@ -65,6 +70,9 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
                     break;
             }
         }
+
+        friendlyMastership = new FriendlyMastership(stars.get(2), stars);
+
     }
 
     @Override
@@ -88,6 +96,14 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
                         view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                         false, false);
         }
+
+        for (View view : friendlyMastership.getViews())
+            batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
+                    (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                    view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
+                    view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                    false, false);
+
         batch.end();
 
     }
@@ -122,6 +138,10 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
+
+        Point touch = new Point(x, Gdx.graphics.getHeight() - y);
+
+        friendlyMastership.onTouch(touch);
 
         return true;
     }

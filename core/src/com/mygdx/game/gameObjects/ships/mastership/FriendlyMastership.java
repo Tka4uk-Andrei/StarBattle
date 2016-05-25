@@ -32,7 +32,7 @@ public class FriendlyMastership extends Mastership {
 
     private Texture focus;
 
-    public FriendlyMastership(Star starModel, Array<Star> starModels) {
+    public FriendlyMastership(Star starModel, Array<Star> starModels, FocusTexture focusTexture) {
 
         this.star = starModel;
         this.stars = starModels;
@@ -48,8 +48,7 @@ public class FriendlyMastership extends Mastership {
 
         focusFlag = false;
 
-        TexturesPack texturesPack = new FocusTexture();
-        focusView = new View(texturesPack, model.getCenterPoint(), 0);
+        focusView = new View(focusTexture, model.getCenterPoint(), 0);
     }
 
     @Override
@@ -123,6 +122,7 @@ public class FriendlyMastership extends Mastership {
                 if (stars.get(i).getBasicStar().getModel().getCenterPoint().inRectRangeThatPoint(touch,
                         view.getFrame().getWidth(), view.getFrame().getHeight())) {
                     send.send(stars.get(i));
+                    focusFlag = true;
                     return;
                 } else
                     focusFlag = false;

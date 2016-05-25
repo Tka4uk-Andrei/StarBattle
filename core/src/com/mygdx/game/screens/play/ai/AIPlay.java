@@ -21,6 +21,7 @@ import com.mygdx.game.system.Point;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
 import com.mygdx.game.textures.StarTextureContainer;
+import com.mygdx.game.textures.focus.FocusTexture;
 
 public class AIPlay implements Screen, GestureDetector.GestureListener {
 
@@ -34,6 +35,7 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
     private Texture background;
     private StarTextureContainer starTextureContainer;
     private ShipTexturesContainer shipTexturesContainer;
+    private FocusTexture focusTexture;
 
     public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose, Array<StarModel> starModels) {
 
@@ -48,30 +50,31 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
         starTextureContainer = new StarTextureContainer();
         shipTexturesContainer = new ShipTexturesContainer();
+        focusTexture = new FocusTexture();
 
         stars = new Array<Star>();
         for (int i = 0; i < starModels.size; ++i) {
             switch (starModels.get(i).getType()){
                 case StarModel.Constants.Types.SMALL :
                     stars.add(new SmallStar(starModels.get(i), starTextureContainer.getSmallStar(),
-                            shipTexturesContainer, starModels, 0));
+                            shipTexturesContainer, starModels, 0, focusTexture));
                     break;
                 case StarModel.Constants.Types.FACTORY :
                     stars.add(new FactoryStar(starModels.get(i), starTextureContainer.getFactoryStar(),
-                            shipTexturesContainer, starModels, 0));
+                            shipTexturesContainer, starModels, 0, focusTexture));
                     break;
                 case StarModel.Constants.Types.MINE :
                     stars.add(new MineStar(starModels.get(i), starTextureContainer.getMineStar(),
-                            shipTexturesContainer, starModels, 0));
+                            shipTexturesContainer, starModels, 0, focusTexture));
                     break;
                 case StarModel.Constants.Types.ADVANCED_FACTORY :
                     stars.add(new AdvancedFactory(starModels.get(i), starTextureContainer.getAdvancedFactoryStar(),
-                            shipTexturesContainer, starModels, 0));
+                            shipTexturesContainer, starModels, 0, focusTexture));
                     break;
             }
         }
 
-        friendlyMastership = new FriendlyMastership(stars.get(2), stars);
+        friendlyMastership = new FriendlyMastership(stars.get(2), stars, focusTexture);
 
     }
 
@@ -133,6 +136,7 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         background.dispose();
         starTextureContainer.dispose();
         shipTexturesContainer.dispose();
+        focusTexture.dispose();
     }
 
 
@@ -142,6 +146,18 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         Point touch = new Point(x, Gdx.graphics.getHeight() - y);
 
         friendlyMastership.onTouch(touch);
+
+        for (int i = 0; i < stars.size; ++i){
+            stars.get(i).onTouch(touch);
+        }
+
+//        for (int i = 0; i < stars.size; i++) {
+//            if (stars[i].isFocusFlag() && stars.get(i).isReadyToSend())
+//                for (int j = 0; j < stars[i].getConnectedStars().length; j++)
+//                    if (stars[stars[i].getConnectedStars()[j]].isTouched(point))
+//                        stars[i].sendFleet(stars[stars[i].getConnectedStars()[j]]);
+//            stars[i].setFocusFlag(stars[i].isTouched(point));
+//        }
 
         return true;
     }

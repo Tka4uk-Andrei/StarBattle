@@ -53,7 +53,7 @@ public class FleetManager {
     }
 
     public ShipModel getModelForSend() {
-        return null;
+        return menuBar.getSendModel();
     }
 
     public FleetModel getFleetModels() {
@@ -63,26 +63,34 @@ public class FleetManager {
     public Array<View> getViews() {
         Array<View> views = new Array<View>();
 
+
         raptorView.update(true);
-        views.add(raptorView);
+        if (star.getBasicStar().getModel().getFleetModel().getRaptor().getCount() > 0)
+            views.add(raptorView);
 
         cruiserView.update(true);
-        views.add(cruiserView);
+        if (star.getBasicStar().getModel().getFleetModel().getCruiser().getCount() > 0)
+            views.add(cruiserView);
 
         oneCruiserView.update(true);
-        views.add(oneCruiserView);
+        if (star.getBasicStar().getModel().getFleetModel().getOneCruiser().getCount() > 0)
+            views.add(oneCruiserView);
 
         twoCruiserView.update(true);
-        views.add(twoCruiserView);
+        if (star.getBasicStar().getModel().getFleetModel().getTwoCruiser().getCount() > 0)
+            views.add(twoCruiserView);
 
         shieldView.update(true);
-        views.add(shieldView);
+        if (star.getBasicStar().getModel().getFleetModel().getShield().getCount() > 0)
+            views.add(shieldView);
 
         oneShieldView.update(true);
-        views.add(oneShieldView);
+        if (star.getBasicStar().getModel().getFleetModel().getOneShield().getCount() > 0)
+            views.add(oneShieldView);
 
         twoShieldView.update(true);
-        views.add(twoShieldView);
+        if (star.getBasicStar().getModel().getFleetModel().getTwoShield().getCount() > 0)
+            views.add(twoShieldView);
 
         if (star.getBasicStar().isFocusFlag())
             for (View view : menuBar.getViews())
@@ -91,9 +99,8 @@ public class FleetManager {
         return views;
     }
 
-    public void onTouch(Point touch) {
-        if (star.getBasicStar().isFocusFlag())
-            menuBar.onTouch(touch);
+    public boolean onTouch(Point touch) {
+        return menuBar.onTouch(touch);
     }
 
     public void setSide(int side) {
@@ -108,5 +115,11 @@ public class FleetManager {
         twoShieldView.setTexturesPack(texturesContainer.getTwoShield().getTexturesPack(side));
         oneShieldView.setTexturesPack(texturesContainer.getOneShield().getTexturesPack(side));
 
+        menuBar.setSide(side);
+        menuBar.setDefault();
+    }
+
+    public void setDefault(){
+        menuBar.setDefault();
     }
 }

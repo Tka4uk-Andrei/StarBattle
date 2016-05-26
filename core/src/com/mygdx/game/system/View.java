@@ -1,6 +1,8 @@
 package com.mygdx.game.system;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 public class View {
 
@@ -12,6 +14,9 @@ public class View {
 
     private int currentFrame;
 
+    private BitmapFont bitmapFont;
+    private String text;
+
     public View(TexturesPack texturesPack, Point centerPoint, Point originPoint, int currentFrame, float rotation) {
         time = System.currentTimeMillis();
         textures = texturesPack;
@@ -21,6 +26,8 @@ public class View {
 
         this.originPoint = new Point(originPoint.getX() - renderPoint.getX(), originPoint.getY() - renderPoint.getY());
         this.rotation = rotation;
+
+        bitmapFont = null;
     }
 
     public View(TexturesPack texturesPack, Point centerPoint, int currentFrame) {
@@ -30,10 +37,21 @@ public class View {
         renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
                 centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
         originPoint = new Point(textures.getTextures().get(currentFrame).getWidth() / 2, textures.getTextures().get(currentFrame).getHeight() / 2);
+
+        bitmapFont = null;
     }
 
-    public View (){
+    public View(BitmapFont bitmapFont, String text, Point centerPoint) {
 
+        this.bitmapFont = bitmapFont;
+        this.text = text;
+
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(bitmapFont, text);
+
+        renderPoint = new Point(centerPoint.getX(), centerPoint.getY());
+
+        textures = null;
     }
 
     public void update(boolean rotationFlag) {
@@ -71,7 +89,10 @@ public class View {
     }
 
     public Texture getFrame() {
-        return textures.getTextures().get(currentFrame);
+        if (textures != null)
+            return textures.getTextures().get(currentFrame);
+        else
+            return null;
     }
 
     public float getRotation() {
@@ -106,5 +127,21 @@ public class View {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public BitmapFont getBitmapFont() {
+        return bitmapFont;
+    }
+
+    public void setBitmapFont(BitmapFont bitmapFont) {
+        this.bitmapFont = bitmapFont;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

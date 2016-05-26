@@ -45,11 +45,11 @@ public class Point {
     }
 
     public boolean inRangeXThatPoint(Point point, double xRange) {
-        return this.x - xRange / 2 <= point.getX() && point.getX() <= this.x + xRange / 2;
+        return this.x - xRange <= point.getX() && point.getX() <= this.x + xRange;
     }
 
     public boolean inRangeYThatPoint(Point point, double yRange) {
-        return this.y - yRange / 2 <= point.getY() && point.getY() <= this.y + yRange / 2;
+        return this.y - yRange <= point.getY() && point.getY() <= this.y + yRange;
     }
 
     public boolean equals(Point point) {

@@ -70,8 +70,10 @@ public class BasicStar {
 
         if (starModel.getCenterPoint().inRectRangeThatPoint(touch,
                 view.getFrame().getWidth(), view.getFrame().getHeight())) {
-
             focusFlag = true;
+            fleetManager.setDefault();
+        } else if (focusFlag) {
+            focusFlag = fleetManager.onTouch(touch);
         } else
             focusFlag = false;
 

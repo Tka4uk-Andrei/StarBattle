@@ -92,19 +92,27 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
                 1, 1, 0, 0, 0, background.getWidth(), background.getHeight(), false, false);
         for (Star star : stars) {
             for (View view : star.getViews())
+                if (view.getFrame() != null) {
+                    batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
+                            (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                            view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
+                            view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                            false, false);
+                } else {
+                    view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
+                }
+        }
+
+        for (View view : friendlyMastership.getViews())
+            if (view.getFrame() != null) {
                 batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
                         (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
                         view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
                         view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                         false, false);
-        }
-
-        for (View view : friendlyMastership.getViews())
-            batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
-                    (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
-                    view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
-                    view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
-                    false, false);
+            } else {
+                view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
+            }
 
         batch.end();
 

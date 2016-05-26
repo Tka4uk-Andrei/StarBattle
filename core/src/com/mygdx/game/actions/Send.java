@@ -20,6 +20,7 @@ public class Send {
     public Send(Star star, Ship ship) {
         currentStar = star;
         this.ship = ship;
+        this.ship.setCenterPoint(currentStar.getBasicStar().getModel().getCenterPoint());
         mastership = null;
 
         vectorX = 0;

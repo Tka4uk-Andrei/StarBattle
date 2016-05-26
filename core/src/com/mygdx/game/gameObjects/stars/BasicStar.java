@@ -49,8 +49,6 @@ public class BasicStar {
 
         view = new View(starTextures.getTexturesPack(starModel.getSide()), starModel.getCenterPoint(), currentFrame);
 
-        fleetManager = new FleetManager(starModel, shipsTextures, starTextures);
-
         lines = new Array<Line>();
 
         for (int i : starModel.getConnectedStars())
@@ -60,6 +58,8 @@ public class BasicStar {
         focusView = new View(focusTexture, starModel.getCenterPoint(), 0);
 
         ships = new Array<Ship>();
+
+        fleetManager = new FleetManager(star, starModel, shipsTextures, starTextures);
     }
 
     public StarModel getModel() {
@@ -146,7 +146,7 @@ public class BasicStar {
         this.mastership = mastership;
     }
 
-    public boolean isFocusFlag(){
+    public boolean isFocusFlag() {
         return focusFlag;
     }
 }

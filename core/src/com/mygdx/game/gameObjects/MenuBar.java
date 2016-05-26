@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.gameObjects.ships.Ship;
 import com.mygdx.game.models.FleetModel;
+import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.system.Point;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
@@ -64,6 +65,7 @@ public class MenuBar {
     private BitmapFont bitmapFont;
 
     private FleetModel fleetModel;
+    private ShipModel sendModel;
 
     public MenuBar(FleetModel fleetModel, ShipTexturesContainer shipTexturesContainer) {
 
@@ -100,6 +102,17 @@ public class MenuBar {
         this.cruiserView = new View(shipTexturesContainer.getCruiser().getTexturesPack(fleetModel.getCruiser().getSide()), cruiserViewPoint, 0);
         this.twoCruiserView = new View(shipTexturesContainer.getOneCruiser().getTexturesPack(fleetModel.getTwoCruiser().getSide()), twoCruiserViewPoint, 0);
         this.oneCruiserView = new View(shipTexturesContainer.getTwoCruiser().getTexturesPack(fleetModel.getOneCruiser().getSide()), oneCruiserViewPoint, 0);
+
+
+        x = Gdx.graphics.getWidth() - Constants.BAR_WIDTH / 2;
+
+        raptorViewPoint.setX(x);
+        shieldViewPoint.setX(x);
+        twoShieldViewPoint.setX(x);
+        oneShieldViewPoint.setX(x);
+        cruiserViewPoint.setX(x);
+        twoCruiserViewPoint.setX(x);
+        oneCruiserViewPoint.setX(x);
 
         Pixmap background = new Pixmap(Constants.BAR_WIDTH, Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
         background.setColor(Color.DARK_GRAY);
@@ -138,12 +151,19 @@ public class MenuBar {
         views.add(backgroundView);
         if (raptorFocus && cruiserFocus) {
             views.add(raptorView);
+
             views.add(cruiserView);
+
             views.add(twoCruiserView);
+
             views.add(oneCruiserView);
+
             views.add(twoShieldView);
+
             views.add(oneShieldView);
+
             views.add(shieldView);
+
         } else {
             if (sendFocusFlag)
                 views.add(focusView);
@@ -170,7 +190,29 @@ public class MenuBar {
 
     public boolean onTouch(Point touch) {
 
+        if (cruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight() / 2)) {
+            if (cruiserFocus) {
 
+            }
+            cruiserFocus = true;
+        } else if (raptorViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight() / 2)) {
+            if (raptorFocus) {
+                sendModel.setCount((sendModel.getCount() + 1) % fleetModel.getRaptor().getCount());
+            } else {
+                raptorFocus = true;
+                sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
+            }
+        } else if (oneCruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight() / 2)) {
+            oneCruiserFocus = true;
+        } else if (twoCruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight() / 2)) {
+            twoCruiserFocus = true;
+        } else if (shieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight() / 2)) {
+            shieldFocus = true;
+        } else if (oneShieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight() / 2)) {
+            oneCruiserFocus = true;
+        } else if (twoShieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight() / 2)) {
+            twoShieldFocus = true;
+        }
 
 //
 //        if (!centerPoint.inRangeThatPoint(touch, barWidth, barHeight))
@@ -243,21 +285,16 @@ public class MenuBar {
         twoShieldFocus = true;
         sendFocusFlag = false;
 
+        sendModel.setCount(0);
+
     }
 
     public boolean isSendCondition() {
         return sendFocusFlag;
     }
 
-    public int getShipsTypeForSend() {
-//        if (raptor.isFocused())
-//            return Constants.ShipTypes.RAPTOR;
-//        if (shield.isFocused())
-//            return Constants.ShipTypes.SHIELD;
-//        if (cruiser.isFocused())
-//            return Constants.ShipTypes.CRUISER;
-
-        return -1;
+    public ShipModel getSendModel(){
+        return sendModel;
     }
 
     private static class Constants {

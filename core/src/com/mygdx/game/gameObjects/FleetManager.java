@@ -1,6 +1,7 @@
 package com.mygdx.game.gameObjects;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.models.FleetModel;
 import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.models.StarModel;
@@ -21,7 +22,7 @@ public class FleetManager {
     private View twoCruiserView;
     private View oneCruiserView;
 
-    private StarModel starModel;
+    private Star star;
 
     private MenuBar menuBar;
 
@@ -29,26 +30,26 @@ public class FleetManager {
 
     private ShipTexturesContainer texturesContainer;
 
-    public FleetManager(StarModel starModel, ShipTexturesContainer shipTexturesContainer, ConditionTextures starTextureContainer) {
+    public FleetManager(Star star, StarModel model, ShipTexturesContainer shipTexturesContainer, ConditionTextures starTextureContainer) {
 
-        this.starModel = starModel;
+        this.star = star;
         this.texturesContainer = shipTexturesContainer;
 
-        float delta = (shipTexturesContainer.getRaptor().getTexturesPack(starModel.getSide()).getTextures().get(0).getWidth()
-                + starTextureContainer.getTexturesPack(starModel.getSide()).getTextures().get(0).getWidth()) / 2;
-        Point point = new Point(starModel.getCenterPoint().getX() - delta, starModel.getCenterPoint().getY());
+        float delta = (shipTexturesContainer.getRaptor().getTexturesPack(model.getSide()).getTextures().get(0).getWidth()
+                + starTextureContainer.getTexturesPack(model.getSide()).getTextures().get(0).getWidth()) / 2;
+        Point point = new Point(model.getCenterPoint().getX() - delta, model.getCenterPoint().getY());
 
-        this.raptorView = new View(shipTexturesContainer.getRaptor().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 0);
+        this.raptorView = new View(shipTexturesContainer.getRaptor().getTexturesPack(model.getSide()), point, model.getCenterPoint(), 0, 0);
 
-        this.shieldView = new View(shipTexturesContainer.getShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 51);
-        this.oneShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 102);
-        this.twoShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 153);
+        this.shieldView = new View(shipTexturesContainer.getShield().getTexturesPack(model.getSide()), point, model.getCenterPoint(), 0, 51);
+        this.oneShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(model.getSide()), point, model.getCenterPoint(), 0, 102);
+        this.twoShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(model.getSide()), point, model.getCenterPoint(), 0, 153);
 
-        this.cruiserView = new View(shipTexturesContainer.getCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 204);
-        this.twoCruiserView = new View(shipTexturesContainer.getOneCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 255);
-        this.oneCruiserView = new View(shipTexturesContainer.getTwoCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 306);
+        this.cruiserView = new View(shipTexturesContainer.getCruiser().getTexturesPack(model.getSide()), point, model.getCenterPoint(), 0, 204);
+        this.twoCruiserView = new View(shipTexturesContainer.getOneCruiser().getTexturesPack(model.getSide()), point, model.getCenterPoint(), 0, 255);
+        this.oneCruiserView = new View(shipTexturesContainer.getTwoCruiser().getTexturesPack(model.getSide()), point, model.getCenterPoint(), 0, 306);
 
-        menuBar = new MenuBar(starModel.getFleetModel(), shipTexturesContainer);
+        menuBar = new MenuBar(model.getFleetModel(), shipTexturesContainer);
     }
 
     public ShipModel getModelForSend() {
@@ -56,7 +57,7 @@ public class FleetManager {
     }
 
     public FleetModel getFleetModels() {
-        return starModel.getFleetModel();
+        return star.getBasicStar().getModel().getFleetModel();
     }
 
     public Array<View> getViews() {
@@ -83,14 +84,16 @@ public class FleetManager {
         twoShieldView.update(true);
         views.add(twoShieldView);
 
-        for (View view : menuBar.getViews())
-            views.add(view);
+        if (star.getBasicStar().isFocusFlag())
+            for (View view : menuBar.getViews())
+                views.add(view);
 
         return views;
     }
 
     public void onTouch(Point touch) {
-
+        if (star.getBasicStar().isFocusFlag())
+            menuBar.onTouch(touch);
     }
 
     public void setSide(int side) {

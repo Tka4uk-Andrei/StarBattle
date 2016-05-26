@@ -48,6 +48,7 @@ public class FleetManager {
         this.twoCruiserView = new View(shipTexturesContainer.getOneCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 120);
         this.oneCruiserView = new View(shipTexturesContainer.getTwoCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 270);
 
+        menuBar = new MenuBar(starModel.getFleetModel(), shipTexturesContainer);
     }
 
     public ShipModel getModelForSend() {
@@ -81,6 +82,9 @@ public class FleetManager {
 
         twoShieldView.update(true);
         views.add(twoShieldView);
+
+        for (View view : menuBar.getViews())
+            views.add(view);
 
         return views;
     }

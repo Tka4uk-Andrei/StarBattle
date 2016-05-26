@@ -69,9 +69,10 @@ public class MenuBar {
 
         this.fleetModel = fleetModel;
 
-        float py = Gdx.graphics.getHeight() / 8f;
+        float py = Gdx.graphics.getHeight() / 16f;
 
-        float x = Gdx.graphics.getWidth() - Constants.BAR_WIDTH + 10;
+        float x = Gdx.graphics.getWidth() - Constants.BAR_WIDTH + 10 +
+                shipTexturesContainer.getRaptor().getTexturesPack(fleetModel.getRaptor().getSide()).getTextures().get(0).getWidth() / 2;
 
         raptorViewPoint = new Point(x, Gdx.graphics.getHeight() -
                 (shipTexturesContainer.getRaptor().getTexturesPack(0).getTextures().get(0).getHeight() / 2 + py + py * 2 * 0));

@@ -5,15 +5,22 @@ import com.mygdx.game.system.Point;
 public class ShipModel {
 
     private int side = 0;
-//    private int currentFrame = 0;
     private Point centerPoint;
     private int type;
     private int count;
 
-    public ShipModel(Point centerPoint, int currentFrame, int side, int type, int count) {
+    public ShipModel(Point centerPoint, int side, int type, int count) {
 
         this.centerPoint = new Point(centerPoint);
-//        this.currentFrame = currentFrame;
+        this.side = side;
+        this.type = type;
+        this.count = count;
+
+    }
+
+    public ShipModel(int side, int type, int count) {
+
+        this.centerPoint = new Point();
         this.side = side;
         this.type = type;
         this.count = count;

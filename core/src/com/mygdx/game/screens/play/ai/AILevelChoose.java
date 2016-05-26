@@ -81,11 +81,7 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
         Array<StarModel> stars = new Array<StarModel>();
 
-        ShipModel shipModel = new ShipModel(new Point(100, 100), 0, 0, 1, 0);
-
-        FleetModel fleetModel = new FleetModel(shipModel, shipModel, shipModel, shipModel,
-                shipModel, shipModel, shipModel);
-
+        FleetModel fleetModel = new FleetModel();
 
         screenHeight = Gdx.graphics.getHeight();
         screenWidth = Gdx.graphics.getWidth();

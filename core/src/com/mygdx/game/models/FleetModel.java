@@ -1,5 +1,8 @@
 package com.mygdx.game.models;
 
+import com.mygdx.game.system.Constants;
+import com.mygdx.game.system.Point;
+
 public class FleetModel {
 
     private ShipModel raptor;
@@ -12,16 +15,16 @@ public class FleetModel {
     private ShipModel twoCruiser;
     private ShipModel oneCruiser;
 
-    public FleetModel(ShipModel raptor, ShipModel shield, ShipModel twoShield, ShipModel oneShield,
-                      ShipModel cruiser, ShipModel twoCruiser, ShipModel oneCruiser) {
+    public FleetModel() {
 
-        setShip(raptor);
-        setShip(shield);
-        setShip(twoShield);
-        setShip(oneShield);
-        setShip(cruiser);
-        setShip(twoCruiser);
-        setShip(oneCruiser);
+        setShip(new ShipModel(Constants.Sides.NONE, ShipModel.Constants.Types.RAPTOR, 0));
+        setShip(new ShipModel(Constants.Sides.NONE, ShipModel.Constants.Types.CRUISER, 0));
+        setShip(new ShipModel(Constants.Sides.NONE, ShipModel.Constants.Types.TWO_CRUISER, 0));
+        setShip(new ShipModel(Constants.Sides.NONE, ShipModel.Constants.Types.ONE_CRUISER, 0));
+        setShip(new ShipModel(Constants.Sides.NONE, ShipModel.Constants.Types.SHIELD, 0));
+        setShip(new ShipModel(Constants.Sides.NONE, ShipModel.Constants.Types.TWO_SHIELD, 0));
+        setShip(new ShipModel(Constants.Sides.NONE, ShipModel.Constants.Types.ONE_SHIELD, 0));
+
     }
 
     public void setShip(ShipModel ship) {

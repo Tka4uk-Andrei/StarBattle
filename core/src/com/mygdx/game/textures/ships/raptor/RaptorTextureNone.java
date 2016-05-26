@@ -32,7 +32,7 @@ public class RaptorTextureNone extends TexturesPack {
 
         public static final int FRAME_TIME = 60;
 
-        public static float DELTA_DEGREE = -1;
+        public static float DELTA_DEGREE = -3.5f;
     }
 
     @Override

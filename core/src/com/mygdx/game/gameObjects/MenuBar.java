@@ -169,6 +169,9 @@ public class MenuBar {
     }
 
     public boolean onTouch(Point touch) {
+
+
+
 //
 //        if (!centerPoint.inRangeThatPoint(touch, barWidth, barHeight))
 //            return false;
@@ -232,13 +235,14 @@ public class MenuBar {
 
     public void setDefault() {
 
-//        cruiser.setFocus(true);
-//        raptor.setFocus(true);
-//        shield.setFocus(true);
+        cruiserFocus = true;
+        raptorFocus = true;
+        oneShieldFocus = true;
+        oneCruiserFocus = true;
+        twoCruiserFocus = true;
+        twoShieldFocus = true;
+        sendFocusFlag = false;
 
-//        sendFocusFlag = false;
-//
-//        shipCount = 0;
     }
 
     public boolean isSendCondition() {

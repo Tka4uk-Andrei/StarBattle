@@ -38,6 +38,6 @@ public class ShieldTextureNone extends TexturesPack {
 
         public static final int FRAME_TIME = 60;
 
-        public static float DELTA_DEGREE = 3;
+        public static float DELTA_DEGREE = -3f;
     }
 }

@@ -40,13 +40,13 @@ public class FleetManager {
 
         this.raptorView = new View(shipTexturesContainer.getRaptor().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 0);
 
-        this.shieldView = new View(shipTexturesContainer.getShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 30);
-        this.oneShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 120);
-        this.twoShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 150);
+        this.shieldView = new View(shipTexturesContainer.getShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 51);
+        this.oneShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 102);
+        this.twoShieldView = new View(shipTexturesContainer.getTwoShield().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 153);
 
-        this.cruiserView = new View(shipTexturesContainer.getCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 90);
-        this.twoCruiserView = new View(shipTexturesContainer.getOneCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 120);
-        this.oneCruiserView = new View(shipTexturesContainer.getTwoCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 270);
+        this.cruiserView = new View(shipTexturesContainer.getCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 204);
+        this.twoCruiserView = new View(shipTexturesContainer.getOneCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 255);
+        this.oneCruiserView = new View(shipTexturesContainer.getTwoCruiser().getTexturesPack(starModel.getSide()), point, starModel.getCenterPoint(), 0, 306);
 
         menuBar = new MenuBar(starModel.getFleetModel(), shipTexturesContainer);
     }

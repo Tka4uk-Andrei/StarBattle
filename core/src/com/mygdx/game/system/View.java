@@ -32,6 +32,10 @@ public class View {
         originPoint = new Point(textures.getTextures().get(currentFrame).getWidth() / 2, textures.getTextures().get(currentFrame).getHeight() / 2);
     }
 
+    public View (){
+
+    }
+
     public void update(boolean rotationFlag) {
         if (System.currentTimeMillis() - time >= textures.getFrameTime()) {
             time = System.currentTimeMillis();

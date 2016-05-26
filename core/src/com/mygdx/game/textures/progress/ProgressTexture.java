@@ -110,4 +110,11 @@ public class ProgressTexture extends TexturesPack {
         for (Texture texture : textures)
             texture.dispose();
     }
+
+    public static class Constants {
+
+        public static final int SHIP_BILD_FRAMES = 120;
+        public static final int BILD_TIME = 5000;
+
+    }
 }

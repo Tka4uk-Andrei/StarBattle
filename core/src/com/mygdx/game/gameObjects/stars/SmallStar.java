@@ -41,5 +41,8 @@ public class SmallStar extends Star {
 
     }
 
-
+    @Override
+    public void setSide(int side) {
+        basicStar.updateSide(side);
+    }
 }

@@ -13,4 +13,6 @@ public abstract class Star {
     public abstract void onTouch(Point touch);
 
     public abstract void sendTouch(Point touch);
+
+    public abstract void setSide(int side);
 }

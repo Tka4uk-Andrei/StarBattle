@@ -1,6 +1,8 @@
 package com.mygdx.game.actions;
 
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
+import com.mygdx.game.system.Point;
+import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.progress.ProgressTexture;
 
@@ -11,18 +13,21 @@ public class Progress {
     private boolean done;
     private boolean firstDone;
 
-    private Mastership mastership;
+    private Point centerPoint;
 
-    public Progress(ProgressTexture progressTexture, Mastership mastership) {
+    private TexturesPack texturesPack;
 
-        this.mastership = mastership;
+    public Progress(TexturesPack texturesPack, Point centerPoint) {
 
-        view = new View(progressTexture, mastership.getModel().getCenterPoint(), 0);
+        this.centerPoint = centerPoint;
+        this.texturesPack = texturesPack;
+
+        view = new View(texturesPack, centerPoint, 0);
     }
 
     private void update() {
 
-        view.setRenderPoint(mastership.getModel().getCenterPoint());
+        view.setRenderPoint(centerPoint);
         view.update(false);
 
         if (view.getCurrentFrame() == (view.getTexturesPack().getTextures().size - 1) && firstDone) {
@@ -57,9 +62,20 @@ public class Progress {
     }
 
     public View getView() {
-
         update();
         return view;
     }
 
+    public void setCenterPoint(Point centerPoint){
+        view.setRenderPoint(centerPoint);
+        this.centerPoint = centerPoint;
+    }
+
+    public TexturesPack getTexturesPack() {
+        return texturesPack;
+    }
+
+    public void setTexturesPack(TexturesPack texturesPack) {
+        this.texturesPack = texturesPack;
+    }
 }

@@ -86,6 +86,7 @@ public class View {
     public void setRenderPoint(Point centerPoint) {
         renderPoint.setX(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2);
         renderPoint.setY(centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
+
     }
 
     public Texture getFrame() {

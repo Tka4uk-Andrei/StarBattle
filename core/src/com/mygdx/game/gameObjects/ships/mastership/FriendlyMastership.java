@@ -42,7 +42,7 @@ public class FriendlyMastership extends Mastership {
 
         send = new Send(starModel, this);
         progressTexture = new ProgressTexture(180, 128, Constants.Colors.friendly, 2, 5000);
-        progress = new Progress(progressTexture, this);
+        progress = new Progress(progressTexture, model.getCenterPoint());
 
         focusFlag = false;
 
@@ -135,6 +135,7 @@ public class FriendlyMastership extends Mastership {
         view.setRenderPoint(centerPoint);
         view.setOriginPointInCenter();
         model.setCenterPoint(centerPoint);
+        progress.setCenterPoint(centerPoint);
         focusView.setRenderPoint(centerPoint);
     }
 

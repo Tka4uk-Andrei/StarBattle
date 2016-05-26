@@ -210,7 +210,7 @@ public class MenuBar {
                 views.add(new View(bitmapFont, String.valueOf(fleetModel.getRaptor().getCount()), raptorCountPoint));
             } else if (cruiserFocus) {
                 views.add(cruiserView);
-                views.add(new View(bitmapFont, String.valueOf(fleetModel.getCruiser().getCount()), cruiserCountPoint));
+                views.add(new View(bitmapFont, String.valueOf(fleetModel.getCruiser().getCount()), cruiserViewPoint));
             } else if (twoCruiserFocus) {
                 views.add(twoCruiserView);
                 views.add(new View(bitmapFont, String.valueOf(fleetModel.getTwoCruiser().getCount()), twoCruiserCountPoint));

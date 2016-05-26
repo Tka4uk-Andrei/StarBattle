@@ -129,7 +129,10 @@ public class BasicStar {
     }
 
     public void setSide(int side) {
+        star.setSide(side);
+    }
 
+    public void updateSide(int side){
         starModel.setSide(side);
 
         view.setTexturesPack(starTextures.getTexturesPack(side));

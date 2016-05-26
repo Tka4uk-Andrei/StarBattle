@@ -12,13 +12,15 @@ public class View {
 
     private int currentFrame;
 
-    public View(TexturesPack texturesPack, Point centerPoint, Point originPoint, int currentFrame) {
+    public View(TexturesPack texturesPack, Point centerPoint, Point originPoint, int currentFrame, float rotation) {
         time = System.currentTimeMillis();
         textures = texturesPack;
         this.currentFrame = currentFrame;
         renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
                 centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
-        this.originPoint = new Point(originPoint);
+
+        this.originPoint = new Point(originPoint.getX() - renderPoint.getX(), originPoint.getY() - renderPoint.getY());
+        this.rotation = rotation;
     }
 
     public View(TexturesPack texturesPack, Point centerPoint, int currentFrame) {

@@ -27,7 +27,7 @@ public class View {
         this.currentFrame = currentFrame;
         renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
                 centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
-        originPoint = new Point(centerPoint);
+        originPoint = new Point(textures.getTextures().get(currentFrame).getWidth() / 2, textures.getTextures().get(currentFrame).getHeight() / 2);
     }
 
     public void update(boolean rotationFlag) {

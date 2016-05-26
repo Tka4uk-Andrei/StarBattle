@@ -12,10 +12,10 @@ public class FactoryStar extends Star {
 
     private BasicStar basicStar;
 
-    public FactoryStar(StarModel starModel, ConditionTextures starTextures,
-                     ShipTexturesContainer shipsTextures, Array<StarModel> starModels, int currentFrame,
+    public FactoryStar(Array<Star> stars, StarModel starModel, ConditionTextures starTextures,
+                       ShipTexturesContainer shipsTextures, Array<StarModel> starModels, int currentFrame,
                        FocusTexture focusTexture) {
-        basicStar = new BasicStar(starModel, starTextures, shipsTextures, starModels, currentFrame,
+        basicStar = new BasicStar(this, stars, starModel, starTextures, shipsTextures, starModels, currentFrame,
                 focusTexture);
     }
 
@@ -34,5 +34,10 @@ public class FactoryStar extends Star {
     @Override
     public void onTouch(Point touch) {
         basicStar.onTouch(touch);
+    }
+
+    @Override
+    public void sendTouch(Point touch) {
+
     }
 }

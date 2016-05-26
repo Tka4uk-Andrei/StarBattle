@@ -11,4 +11,6 @@ public abstract class Star {
     public abstract Array<View> getViews();
 
     public abstract void onTouch(Point touch);
+
+    public abstract void sendTouch(Point touch);
 }

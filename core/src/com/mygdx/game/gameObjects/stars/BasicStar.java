@@ -1,9 +1,9 @@
 package com.mygdx.game.gameObjects.stars;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.gameObjects.FleetManager;
 import com.mygdx.game.gameObjects.Line;
+import com.mygdx.game.gameObjects.ships.Ship;
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.ConditionTextures;
@@ -31,10 +31,17 @@ public class BasicStar {
 
     private View focusView;
 
-    public BasicStar(StarModel starModel, ConditionTextures starTextures,
+    private Array<Ship> ships;
+
+    private Star star;
+    private Array<Star> stars;
+
+    public BasicStar(Star star, Array<Star> stars, StarModel starModel, ConditionTextures starTextures,
                      ShipTexturesContainer shipsTextures, Array<StarModel> starModels, int currentFrame,
                      FocusTexture focusTexture) {
 
+        this.star = star;
+        this.stars = stars;
         this.starModel = starModel;
         this.starModels = starModels;
         this.starTextures = starTextures;
@@ -42,7 +49,7 @@ public class BasicStar {
 
         view = new View(starTextures.getTexturesPack(starModel.getSide()), starModel.getCenterPoint(), currentFrame);
 
-        fleetManager = new FleetManager(starModel, shipsTextures);
+        fleetManager = new FleetManager(starModel, shipsTextures, starTextures);
 
         lines = new Array<Line>();
 
@@ -51,6 +58,8 @@ public class BasicStar {
 
         focusFlag = false;
         focusView = new View(focusTexture, starModel.getCenterPoint(), 0);
+
+        ships = new Array<Ship>();
     }
 
     public StarModel getModel() {
@@ -68,8 +77,20 @@ public class BasicStar {
 
     }
 
+    public void sendTouch(Point touch) {
+        for (int i : starModel.getConnectedStars()) {
+            if (starModels.get(i).getCenterPoint().inRectRangeThatPoint(touch,
+                    view.getFrame().getWidth(), view.getFrame().getHeight())) {
+
+                Ship ship = new Ship(shipsTextures, fleetManager.getModelForSend(), star);
+                ship.send(stars.get(i));
+                ships.add(ship);
+            }
+        }
+    }
+
     public Array<View> getViews() {
-        Array <View> views = new Array<View>();
+        Array<View> views = new Array<View>();
 
         view.update(false);
 
@@ -79,12 +100,24 @@ public class BasicStar {
             views.add(focusView);
         }
 
-        for (Line line : lines){
+        for (Line line : lines) {
             line.getView().update(false);
             views.add(line.getView());
         }
 
         views.add(view);
+
+        for (View view : fleetManager.getViews())
+            views.add(view);
+
+        for (int i = 0; i < ships.size; ++i) {
+            if (!ships.get(i).getSend().isSande()) {
+                ships.removeIndex(i);
+                --i;
+            } else {
+                views.add(ships.get(i).getShipView());
+            }
+        }
 
         return views;
     }
@@ -102,8 +135,7 @@ public class BasicStar {
         for (int i = 0; i < lines.size; ++i)
             lines.get(i).updateSide();
 
-
-
+        fleetManager.setSide(side);
     }
 
     public Mastership getMastership() {
@@ -114,6 +146,7 @@ public class BasicStar {
         this.mastership = mastership;
     }
 
-//    public void
-
+    public boolean isFocusFlag(){
+        return focusFlag;
+    }
 }

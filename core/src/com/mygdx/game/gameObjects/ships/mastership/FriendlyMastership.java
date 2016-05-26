@@ -30,8 +30,6 @@ public class FriendlyMastership extends Mastership {
 
     private boolean focusFlag;
 
-    private Texture focus;
-
     public FriendlyMastership(Star starModel, Array<Star> starModels, FocusTexture focusTexture) {
 
         this.star = starModel;

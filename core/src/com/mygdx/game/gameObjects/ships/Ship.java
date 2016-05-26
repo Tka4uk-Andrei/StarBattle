@@ -7,6 +7,7 @@ import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.system.Point;
 import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
+import com.mygdx.game.textures.ShipTexturesContainer;
 
 public class Ship {
 
@@ -17,12 +18,35 @@ public class Ship {
 
     private TexturesPack shipTextures;
 
-    public Ship(TexturesPack shipTextures, ShipModel model, Star star) {
+    public Ship(ShipTexturesContainer shipTextures, ShipModel model, Star star) {
 
-        this.shipTextures = shipTextures;
         this.model = model;
 
-        view = new View(shipTextures, model.getCenterPoint(), 0);
+        switch (model.getType()){
+            case ShipModel.Constants.Types.CRUISER:
+                this.shipTextures = shipTextures.getCruiser().getTexturesPack(model.getSide());
+            break;
+            case ShipModel.Constants.Types.TWO_CRUISER:
+                this.shipTextures = shipTextures.getTwoCruiser().getTexturesPack(model.getSide());
+                break;
+            case ShipModel.Constants.Types.ONE_CRUISER:
+                this.shipTextures = shipTextures.getOneCruiser().getTexturesPack(model.getSide());
+                break;
+            case ShipModel.Constants.Types.SHIELD:
+                this.shipTextures = shipTextures.getShield().getTexturesPack(model.getSide());
+                break;
+            case ShipModel.Constants.Types.TWO_SHIELD:
+                this.shipTextures = shipTextures.getTwoShield().getTexturesPack(model.getSide());
+                break;
+            case ShipModel.Constants.Types.ONE_SHIELD:
+                this.shipTextures = shipTextures.getOneShield().getTexturesPack(model.getSide());
+                break;
+            case ShipModel.Constants.Types.RAPTOR:
+                this.shipTextures = shipTextures.getRaptor().getTexturesPack(model.getSide());
+                break;
+        }
+
+        view = new View(this.shipTextures, model.getCenterPoint(), 0);
 
         send = new Send(star,  this);
     }
@@ -53,6 +77,10 @@ public class Ship {
 
     public int getSide() {
         return model.getSide();
+    }
+
+    public Send  getSend(){
+        return send;
     }
 
 }

@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
 import com.mygdx.game.gameObjects.ships.mastership.FriendlyMastership;
-import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.gameObjects.stars.AdvancedFactory;
 import com.mygdx.game.gameObjects.stars.FactoryStar;
 import com.mygdx.game.gameObjects.stars.MineStar;
@@ -54,21 +53,21 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
         stars = new Array<Star>();
         for (int i = 0; i < starModels.size; ++i) {
-            switch (starModels.get(i).getType()){
-                case StarModel.Constants.Types.SMALL :
-                    stars.add(new SmallStar(starModels.get(i), starTextureContainer.getSmallStar(),
+            switch (starModels.get(i).getType()) {
+                case StarModel.Constants.Types.SMALL:
+                    stars.add(new SmallStar(stars, starModels.get(i), starTextureContainer.getSmallStar(),
                             shipTexturesContainer, starModels, 0, focusTexture));
                     break;
-                case StarModel.Constants.Types.FACTORY :
-                    stars.add(new FactoryStar(starModels.get(i), starTextureContainer.getFactoryStar(),
+                case StarModel.Constants.Types.FACTORY:
+                    stars.add(new FactoryStar(stars, starModels.get(i), starTextureContainer.getFactoryStar(),
                             shipTexturesContainer, starModels, 0, focusTexture));
                     break;
-                case StarModel.Constants.Types.MINE :
-                    stars.add(new MineStar(starModels.get(i), starTextureContainer.getMineStar(),
+                case StarModel.Constants.Types.MINE:
+                    stars.add(new MineStar(stars, starModels.get(i), starTextureContainer.getMineStar(),
                             shipTexturesContainer, starModels, 0, focusTexture));
                     break;
-                case StarModel.Constants.Types.ADVANCED_FACTORY :
-                    stars.add(new AdvancedFactory(starModels.get(i), starTextureContainer.getAdvancedFactoryStar(),
+                case StarModel.Constants.Types.ADVANCED_FACTORY:
+                    stars.add(new AdvancedFactory(stars, starModels.get(i), starTextureContainer.getAdvancedFactoryStar(),
                             shipTexturesContainer, starModels, 0, focusTexture));
                     break;
             }
@@ -147,7 +146,13 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
         friendlyMastership.onTouch(touch);
 
-        for (int i = 0; i < stars.size; ++i){
+        for (int i = 0; i < stars.size; ++i) {
+//            if (stars.get(i).getBasicStar().isSendFlag())
+//            {
+//                for (int j : stars.get(i).getBasicStar().getModel().getConnectedStars()){
+//
+//                }
+//            }
             stars.get(i).onTouch(touch);
         }
 

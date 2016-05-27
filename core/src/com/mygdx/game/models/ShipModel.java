@@ -9,6 +9,17 @@ public class ShipModel {
     private int type;
     private int count;
 
+    public ShipModel(ShipModel shipModel) {
+
+        this.side = shipModel.getSide();
+        this.type = shipModel.getType();
+        this.count = shipModel.getCount();
+
+        this.centerPoint = new Point();
+        if (shipModel.getCenterPoint() != null)
+            this.centerPoint.setPoint(shipModel.getCenterPoint());
+    }
+
     public ShipModel(Point centerPoint, int side, int type, int count) {
 
         this.centerPoint = new Point(centerPoint);

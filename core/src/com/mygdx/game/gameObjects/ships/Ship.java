@@ -20,12 +20,12 @@ public class Ship {
 
     public Ship(ShipTexturesContainer shipTextures, ShipModel model, Star star) {
 
-        this.model = model;
+        this.model = new ShipModel(model);
 
-        switch (model.getType()){
+        switch (model.getType()) {
             case ShipModel.Constants.Types.CRUISER:
                 this.shipTextures = shipTextures.getCruiser().getTexturesPack(model.getSide());
-            break;
+                break;
             case ShipModel.Constants.Types.TWO_CRUISER:
                 this.shipTextures = shipTextures.getTwoCruiser().getTexturesPack(model.getSide());
                 break;
@@ -48,7 +48,7 @@ public class Ship {
 
         view = new View(this.shipTextures, model.getCenterPoint(), 0);
 
-        send = new Send(star,  this);
+        send = new Send(star, this);
     }
 
     public View getShipView() {
@@ -64,8 +64,8 @@ public class Ship {
         return fight;
     }
 
-    public void send(Star destinationStar){
-        fight = new Fight(destinationStar.getBasicStar().getFleetManager().getFleetModels(), this);
+    public void send(Star destinationStar) {
+        fight = new Fight(destinationStar.getBasicStar().getFleetManager().getFleetModels(), model);
         send.send(destinationStar);
     }
 
@@ -79,7 +79,7 @@ public class Ship {
         return model.getSide();
     }
 
-    public Send  getSend(){
+    public Send getSend() {
         return send;
     }
 

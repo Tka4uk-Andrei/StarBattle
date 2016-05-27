@@ -38,7 +38,7 @@ public class SmallStar extends Star {
 
     @Override
     public void sendTouch(Point touch) {
-
+        basicStar.sendTouch(touch);
     }
 
     @Override

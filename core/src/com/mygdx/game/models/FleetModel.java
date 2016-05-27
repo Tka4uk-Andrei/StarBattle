@@ -1,7 +1,6 @@
 package com.mygdx.game.models;
 
 import com.mygdx.game.system.Constants;
-import com.mygdx.game.system.Point;
 
 public class FleetModel {
 

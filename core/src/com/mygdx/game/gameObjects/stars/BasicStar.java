@@ -131,7 +131,6 @@ public class BasicStar {
 
         view.update(false);
 
-
         if (focusFlag) {
             focusView.update(false);
             views.add(focusView);

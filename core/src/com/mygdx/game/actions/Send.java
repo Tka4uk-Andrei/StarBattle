@@ -100,12 +100,12 @@ public class Send {
         } else {
 
             ship.getModel().getCenterPoint().setX(
-                    ship.getModel().getCenterPoint().getX() +
+                    currentStar.getBasicStar().getModel().getCenterPoint().getX() +
                             vectorX * (System.currentTimeMillis() - timeSend)
             );
 
             ship.getModel().getCenterPoint().setY(
-                    ship.getModel().getCenterPoint().getY() +
+                    currentStar.getBasicStar().getModel().getCenterPoint().getY() +
                             vectorY * (System.currentTimeMillis() - timeSend)
             );
 
@@ -114,12 +114,14 @@ public class Send {
             if (destinationStar.getBasicStar().getModel().getCenterPoint().
                     inRectRangeThatPoint(ship.getModel().getCenterPoint(), Constants.CAPTURE_DISTANCE, Constants.CAPTURE_DISTANCE) ||
                     timeSend + Constants.JUMP_TIME <= System.currentTimeMillis()) {
+
                 vectorX = 0;
                 vectorY = 0;
 
                 currentStar = destinationStar;
 
-                ship.getFight().fight();
+                ship.getFight().fight(destinationStar);
+
             }
         }
     }

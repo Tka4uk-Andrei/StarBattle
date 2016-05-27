@@ -38,8 +38,9 @@ public class MineStar extends Star {
 
     @Override
     public void sendTouch(Point touch) {
-
+        basicStar.sendTouch(touch);
     }
+
 
     @Override
     public void setSide(int side) {

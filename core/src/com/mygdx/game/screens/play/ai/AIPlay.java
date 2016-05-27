@@ -74,6 +74,7 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         }
 
         friendlyMastership = new FriendlyMastership(stars.get(2), stars, focusTexture);
+        stars.get(2).getBasicStar().setMastership(friendlyMastership);
 
     }
 
@@ -155,22 +156,10 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         friendlyMastership.onTouch(touch);
 
         for (int i = 0; i < stars.size; ++i) {
-//            if (stars.get(i).getBasicStar().isSendFlag())
-//            {
-//                for (int j : stars.get(i).getBasicStar().getModel().getConnectedStars()){
-//
-//                }
-//            }
+            if (stars.get(i).getBasicStar().isSendFlag())
+                stars.get(i).sendTouch(touch);
             stars.get(i).onTouch(touch);
         }
-
-//        for (int i = 0; i < stars.size; i++) {
-//            if (stars[i].isFocusFlag() && stars.get(i).isReadyToSend())
-//                for (int j = 0; j < stars[i].getConnectedStars().length; j++)
-//                    if (stars[stars[i].getConnectedStars()[j]].isTouched(point))
-//                        stars[i].sendFleet(stars[stars[i].getConnectedStars()[j]]);
-//            stars[i].setFocusFlag(stars[i].isTouched(point));
-//        }
 
         return true;
     }

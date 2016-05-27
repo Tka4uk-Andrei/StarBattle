@@ -20,7 +20,7 @@ public class Send {
     public Send(Star star, Ship ship) {
         currentStar = star;
         this.ship = ship;
-        this.ship.setCenterPoint(currentStar.getBasicStar().getModel().getCenterPoint());
+        this.ship.setCenterPoint(new Point(currentStar.getBasicStar().getModel().getCenterPoint()));
         mastership = null;
 
         vectorX = 0;
@@ -91,6 +91,9 @@ public class Send {
                 mastership.setCenterPoint(new Point(destinationStar.getBasicStar().getModel().getCenterPoint()));
                 mastership.setStar(destinationStar);
 
+                currentStar.getBasicStar().setMastership(null);
+                destinationStar.getBasicStar().setMastership(mastership);
+
                 currentStar = destinationStar;
             }
 
@@ -98,12 +101,12 @@ public class Send {
 
             ship.getModel().getCenterPoint().setX(
                     ship.getModel().getCenterPoint().getX() +
-                            vectorX * (timeSend - System.currentTimeMillis())
+                            vectorX * (System.currentTimeMillis() - timeSend)
             );
 
             ship.getModel().getCenterPoint().setY(
                     ship.getModel().getCenterPoint().getY() +
-                            vectorY * (timeSend - System.currentTimeMillis())
+                            vectorY * (System.currentTimeMillis() - timeSend)
             );
 
             ship.setCenterPoint(ship.getModel().getCenterPoint());

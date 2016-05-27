@@ -52,13 +52,17 @@ public class MenuBar {
     private Point twoCruiserCountPoint;
     private Point oneCruiserCountPoint;
 
-    private boolean raptorFocus = true;
-    private boolean cruiserFocus = true;
-    private boolean twoCruiserFocus = true;
-    private boolean oneCruiserFocus = true;
-    private boolean shieldFocus = true;
-    private boolean twoShieldFocus = true;
-    private boolean oneShieldFocus = true;
+    private Point sendCountPoint;
+
+    private Point sendViewPoint;
+
+    private boolean raptorFocus;
+    private boolean cruiserFocus;
+    private boolean twoCruiserFocus;
+    private boolean oneCruiserFocus;
+    private boolean shieldFocus;
+    private boolean twoShieldFocus;
+    private boolean oneShieldFocus;
     private boolean sendFocusFlag;
 
     private TexturePackForTexture backgroudTexture;
@@ -79,7 +83,11 @@ public class MenuBar {
 
     private Point center;
 
+    private ShipTexturesContainer shipTextures;
+
     public MenuBar(FleetModel fleetModel, ShipTexturesContainer shipTexturesContainer) {
+
+        shipTextures = shipTexturesContainer;
 
         center = new Point(Gdx.graphics.getWidth() - Constants.BAR_WIDTH / 2, Gdx.graphics.getHeight() / 2);
 
@@ -138,6 +146,7 @@ public class MenuBar {
         twoCruiserCountPoint = new Point(x, Gdx.graphics.getHeight() - (py + py * 2 * 5));
         oneCruiserCountPoint = new Point(x, Gdx.graphics.getHeight() - (py + py * 2 * 6));
 
+        sendCountPoint = new Point(x, Gdx.graphics.getHeight() - (py + py * 2 * 7));
 
         x = Gdx.graphics.getWidth() - Constants.BAR_WIDTH / 2;
 
@@ -148,6 +157,8 @@ public class MenuBar {
         cruiserViewPoint.setX(x);
         twoCruiserViewPoint.setX(x);
         oneCruiserViewPoint.setX(x);
+        sendViewPoint = new Point(x, Gdx.graphics.getHeight() - (shipTexturesContainer.getRaptor().
+                getTexturesPack(0).getTextures().get(0).getHeight() / 2 + py + py * 2 * 7));
 
         Pixmap background = new Pixmap(Constants.BAR_WIDTH, Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
         background.setColor(Color.DARK_GRAY);
@@ -204,6 +215,7 @@ public class MenuBar {
             if (sendFocusFlag)
                 views.add(focusView);
             views.add(sendView);
+            views.add(new View(bitmapFont, String.valueOf(sendModel.getCount()), sendCountPoint));
 
             if (raptorFocus) {
                 views.add(raptorView);
@@ -236,30 +248,84 @@ public class MenuBar {
         if (!center.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, Gdx.graphics.getHeight() / 2))
             return false;
 
-        if (cruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())) {
+        if (cruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())
+                && fleetModel.getCruiser().getCount() > 0 && fleetModel.getCruiser().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
+
             if (cruiserFocus) {
-                sendModel.setCount((sendModel.getCount() + 1) % fleetModel.getRaptor().getCount());
+                sendModel.setCount((sendModel.getCount() + 1) % (fleetModel.getRaptor().getCount() + 1));
             }
             cruiserFocus = true;
             sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
-        } else if (raptorViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())) {
+
+        } else if (raptorViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())
+                && fleetModel.getRaptor().getCount() > 0 && fleetModel.getRaptor().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
+
             if (raptorFocus) {
-                sendModel.setCount((sendModel.getCount() + 1) % fleetModel.getRaptor().getCount());
+                sendModel.setCount((sendModel.getCount() + 1) % (fleetModel.getRaptor().getCount() + 1));
             } else {
                 raptorFocus = true;
                 sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
             }
-        } else if (oneCruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())) {
+
+        } else if (oneCruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())
+                && fleetModel.getOneCruiser().getCount() > 0 && fleetModel.getOneCruiser().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
             oneCruiserFocus = true;
-        } else if (twoCruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())) {
+
+            if (raptorFocus) {
+                sendModel.setCount((sendModel.getCount() + 1) % (fleetModel.getRaptor().getCount() + 1));
+            } else {
+                raptorFocus = true;
+                sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
+            }
+
+        } else if (twoCruiserViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())
+                && fleetModel.getTwoCruiser().getCount() > 0 && fleetModel.getTwoCruiser().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
             twoCruiserFocus = true;
-        } else if (shieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())) {
+
+            if (raptorFocus) {
+                sendModel.setCount((sendModel.getCount() + 1) % (fleetModel.getRaptor().getCount() + 1));
+            } else {
+                raptorFocus = true;
+                sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
+            }
+
+        } else if (shieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())
+                && fleetModel.getShield().getCount() > 0 && fleetModel.getShield().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
             shieldFocus = true;
-        } else if (oneShieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())) {
+
+            if (raptorFocus) {
+                sendModel.setCount((sendModel.getCount() + 1) % (fleetModel.getRaptor().getCount() + 1));
+            } else {
+                raptorFocus = true;
+                sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
+            }
+
+        } else if (oneShieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())
+                && fleetModel.getOneShield().getCount() > 0 && fleetModel.getOneShield().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
             oneShieldFocus = true;
-        } else if (twoShieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())) {
+
+            if (raptorFocus) {
+                sendModel.setCount((sendModel.getCount() + 1) % (fleetModel.getRaptor().getCount() + 1));
+            } else {
+                raptorFocus = true;
+                sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
+            }
+
+        } else if (twoShieldViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, cruiserView.getFrame().getHeight())
+                && fleetModel.getTwoShield().getCount() > 0 && fleetModel.getTwoShield().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
             twoShieldFocus = true;
+
+            if (raptorFocus) {
+                sendModel.setCount((sendModel.getCount() + 1) % (fleetModel.getRaptor().getCount() + 1));
+            } else {
+                raptorFocus = true;
+                sendModel = new ShipModel(fleetModel.getRaptor().getSide(), ShipModel.Constants.Types.RAPTOR, 0);
+            }
+
+        } else if (sendViewPoint.inRectRangeThatPoint(touch, Constants.BAR_WIDTH / 2, sendView.getFrame().getHeight())) {
+            sendFocusFlag = true;
         }
+
 
         return true;
     }
@@ -298,6 +364,14 @@ public class MenuBar {
     }
 
     public void setSide(int side) {
+
+        raptorView.setTexturesPack(shipTextures.getRaptor().getTexturesPack(side));
+        shieldView.setTexturesPack(shipTextures.getShield().getTexturesPack(side));
+        cruiserView.setTexturesPack(shipTextures.getCruiser().getTexturesPack(side));
+        twoShieldView.setTexturesPack(shipTextures.getTwoShield().getTexturesPack(side));
+        oneShieldView.setTexturesPack(shipTextures.getOneShield().getTexturesPack(side));
+        oneCruiserView.setTexturesPack(shipTextures.getOneCruiser().getTexturesPack(side));
+        twoCruiserView.setTexturesPack(shipTextures.getTwoCruiser().getTexturesPack(side));
 
     }
 

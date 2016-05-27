@@ -5,6 +5,7 @@ import com.mygdx.game.gameObjects.FleetManager;
 import com.mygdx.game.gameObjects.Line;
 import com.mygdx.game.gameObjects.ships.Ship;
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
+import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.ConditionTextures;
 import com.mygdx.game.system.Point;
@@ -85,8 +86,42 @@ public class BasicStar {
                     view.getFrame().getWidth(), view.getFrame().getHeight())) {
 
                 Ship ship = new Ship(shipsTextures, fleetManager.getModelForSend(), star);
+
+                switch (fleetManager.getModelForSend().getType()) {
+                    case ShipModel.Constants.Types.RAPTOR:
+                        starModel.getFleetModel().getRaptor().setCount(
+                                starModel.getFleetModel().getRaptor().getCount() - fleetManager.getModelForSend().getCount());
+                        break;
+                    case ShipModel.Constants.Types.CRUISER:
+                        starModel.getFleetModel().getCruiser().setCount(
+                                starModel.getFleetModel().getCruiser().getCount() - fleetManager.getModelForSend().getCount());
+                        break;
+                    case ShipModel.Constants.Types.TWO_CRUISER:
+                        starModel.getFleetModel().getTwoCruiser().setCount(
+                                starModel.getFleetModel().getTwoCruiser().getCount() - fleetManager.getModelForSend().getCount());
+                        break;
+                    case ShipModel.Constants.Types.ONE_CRUISER:
+                        starModel.getFleetModel().getOneCruiser().setCount(
+                                starModel.getFleetModel().getOneCruiser().getCount() - fleetManager.getModelForSend().getCount());
+                        break;
+                    case ShipModel.Constants.Types.SHIELD:
+                        starModel.getFleetModel().getShield().setCount(
+                                starModel.getFleetModel().getShield().getCount() - fleetManager.getModelForSend().getCount());
+                        break;
+                    case ShipModel.Constants.Types.TWO_SHIELD:
+                        starModel.getFleetModel().getTwoShield().setCount(
+                                starModel.getFleetModel().getTwoShield().getCount() - fleetManager.getModelForSend().getCount());
+                        break;
+                    case ShipModel.Constants.Types.ONE_SHIELD:
+                        starModel.getFleetModel().getOneShield().setCount(
+                                starModel.getFleetModel().getOneShield().getCount() - fleetManager.getModelForSend().getCount());
+                        break;
+                }
+
                 ship.send(stars.get(i));
                 ships.add(ship);
+
+                fleetManager.setDefault();
             }
         }
     }
@@ -132,7 +167,7 @@ public class BasicStar {
         star.setSide(side);
     }
 
-    public void updateSide(int side){
+    public void updateSide(int side) {
         starModel.setSide(side);
 
         view.setTexturesPack(starTextures.getTexturesPack(side));
@@ -153,5 +188,9 @@ public class BasicStar {
 
     public boolean isFocusFlag() {
         return focusFlag;
+    }
+
+    public boolean isSendFlag() {
+        return fleetManager.isSendFlag();
     }
 }

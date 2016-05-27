@@ -101,6 +101,7 @@ public class FleetManager {
 
     public boolean onTouch(Point touch) {
         return menuBar.onTouch(touch);
+
     }
 
     public void setSide(int side) {
@@ -115,11 +116,29 @@ public class FleetManager {
         twoShieldView.setTexturesPack(texturesContainer.getTwoShield().getTexturesPack(side));
         oneShieldView.setTexturesPack(texturesContainer.getOneShield().getTexturesPack(side));
 
+        star.getBasicStar().getModel().getFleetModel().getRaptor().setSide(side);
+
+        star.getBasicStar().getModel().getFleetModel().getCruiser().setSide(side);
+        star.getBasicStar().getModel().getFleetModel().getTwoCruiser().setSide(side);
+        star.getBasicStar().getModel().getFleetModel().getOneCruiser().setSide(side);
+
+        star.getBasicStar().getModel().getFleetModel().getShield().setSide(side);
+        star.getBasicStar().getModel().getFleetModel().getTwoShield().setSide(side);
+        star.getBasicStar().getModel().getFleetModel().getOneShield().setSide(side);
+
         menuBar.setSide(side);
         menuBar.setDefault();
     }
 
-    public void setDefault(){
+    public void setDefault() {
         menuBar.setDefault();
+    }
+
+    public boolean isSendFlag() {
+        return menuBar.isSendCondition();
+    }
+
+    public ShipModel getShipForSend() {
+        return menuBar.getSendModel();
     }
 }

@@ -192,4 +192,22 @@ public class BasicStar {
     public boolean isSendFlag() {
         return fleetManager.isSendFlag();
     }
+
+    public boolean isBlocked(int side) {
+
+        if ((fleetManager.getFleetModels().getCruiser().getSide() == side && (
+                fleetManager.getFleetModels().getCruiser().getCount() > 0 ||
+                        fleetManager.getFleetModels().getOneShield().getCount() > 0 ||
+                        fleetManager.getFleetModels().getRaptor().getCount() > 0 ||
+                        fleetManager.getFleetModels().getShield().getCount() > 0 ||
+                        fleetManager.getFleetModels().getTwoCruiser().getCount() > 0 ||
+                        fleetManager.getFleetModels().getTwoShield().getCount() > 0))
+                ||
+                ((mastership != null) &&
+                        mastership.getModel().getSide() == side)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

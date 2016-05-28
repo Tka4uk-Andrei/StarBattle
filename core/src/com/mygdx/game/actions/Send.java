@@ -60,6 +60,8 @@ public class Send {
 
         if (ship == null) {
             mastership.getShipView().setRotation(rotation);
+            currentStar.getBasicStar().setMastership(null);
+            destinationStar.getBasicStar().setMastership(mastership);
         } else {
             ship.getShipView().setRotation(rotation);
         }

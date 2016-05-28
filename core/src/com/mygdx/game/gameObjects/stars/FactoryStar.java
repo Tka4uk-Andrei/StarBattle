@@ -2,6 +2,7 @@ package com.mygdx.game.gameObjects.stars;
 
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.actions.Progress;
+import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.ConditionTextures;
 import com.mygdx.game.system.Constants;
@@ -69,7 +70,18 @@ public class FactoryStar extends Star {
         basicStar.updateSide(side);
     }
 
-    private void updateProgress() {
+    @Override
+    public boolean isBlocked(int side) {
+        return basicStar.isBlocked(side);
+    }
 
+    @Override
+    public Mastership getMastership() {
+        return basicStar.getMastership();
+    }
+
+    @Override
+    public void setMastership(Mastership mastership) {
+        basicStar.setMastership(mastership);
     }
 }

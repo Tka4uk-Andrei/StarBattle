@@ -9,7 +9,9 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
+import com.mygdx.game.ai.AiManager;
 import com.mygdx.game.gameObjects.ships.mastership.FriendlyMastership;
+import com.mygdx.game.gameObjects.ships.mastership.HostileMasterShip;
 import com.mygdx.game.gameObjects.stars.AdvancedFactory;
 import com.mygdx.game.gameObjects.stars.FactoryStar;
 import com.mygdx.game.gameObjects.stars.MineStar;
@@ -30,11 +32,14 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
     private Array<Star> stars;
     private FriendlyMastership friendlyMastership;
+    private HostileMasterShip hostileMasterShip;
 
     private Texture background;
     private StarTextureContainer starTextureContainer;
     private ShipTexturesContainer shipTexturesContainer;
     private FocusTexture focusTexture;
+
+    private AiManager manager;
 
     public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose, Array<StarModel> starModels) {
 
@@ -74,8 +79,13 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         }
 
         friendlyMastership = new FriendlyMastership(stars.get(2), stars, focusTexture);
-        stars.get(2).getBasicStar().setMastership(friendlyMastership);
+        hostileMasterShip = new HostileMasterShip(stars.get(5), stars);
 
+        stars.get(2).getBasicStar().setMastership(friendlyMastership);
+        stars.get(5).getBasicStar().setMastership(hostileMasterShip);
+
+        manager = new AiManager(stars, hostileMasterShip, friendlyMastership);
+        manager.start();
     }
 
     @Override
@@ -91,8 +101,34 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         batch.begin();
         batch.draw(background, 0, 0, 0, 0, background.getWidth(), background.getHeight(),
                 1, 1, 0, 0, 0, background.getWidth(), background.getHeight(), false, false);
-        for (Star star : stars) {
-            for (View view : star.getViews())
+        synchronized (stars) {
+            for (Star star : stars) {
+                for (View view : star.getViews())
+                    if (view.getFrame() != null) {
+                        batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
+                                (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                                view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
+                                view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                                false, false);
+                    } else {
+                        view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
+                    }
+            }
+        }
+        synchronized (friendlyMastership) {
+            for (View view : friendlyMastership.getViews())
+                if (view.getFrame() != null) {
+                    batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
+                            (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                            view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
+                            view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                            false, false);
+                } else {
+                    view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
+                }
+        }
+        synchronized (hostileMasterShip){
+            for (View view : hostileMasterShip.getViews())
                 if (view.getFrame() != null) {
                     batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
                             (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
@@ -104,19 +140,7 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
                 }
         }
 
-        for (View view : friendlyMastership.getViews())
-            if (view.getFrame() != null) {
-                batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
-                        (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
-                        view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
-                        view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
-                        false, false);
-            } else {
-                view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
-            }
-
         batch.end();
-
     }
 
     @Override

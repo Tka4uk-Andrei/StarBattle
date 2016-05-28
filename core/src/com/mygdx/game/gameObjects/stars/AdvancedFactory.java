@@ -1,6 +1,7 @@
 package com.mygdx.game.gameObjects.stars;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.ConditionTextures;
 import com.mygdx.game.system.Point;
@@ -45,5 +46,20 @@ public class AdvancedFactory extends Star {
     @Override
     public void setSide(int side) {
         basicStar.updateSide(side);
+    }
+
+    @Override
+    public boolean isBlocked(int side) {
+        return basicStar.isBlocked(side);
+    }
+
+    @Override
+    public void setMastership(Mastership mastership) {
+        basicStar.setMastership(mastership);
+    }
+
+    @Override
+    public Mastership getMastership() {
+        return basicStar.getMastership();
     }
 }

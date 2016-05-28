@@ -38,7 +38,7 @@ public class FriendlyMastership extends Mastership {
         texturesPack = new MastershipTextureFriendly();
 
         view = new View(texturesPack, starModel.getBasicStar().getModel().getCenterPoint(), 0);
-        model = new MastershipModel(starModel.getBasicStar().getModel().getCenterPoint());
+        model = new MastershipModel(starModel.getBasicStar().getModel().getCenterPoint(), Constants.Sides.FRIENDLY);
 
         send = new Send(starModel, this);
         progressTexture = new ProgressTexture(180, 128, Constants.Colors.friendly, 2, 5000);
@@ -149,5 +149,7 @@ public class FriendlyMastership extends Mastership {
         this.star = star;
     }
 
-
+    public Star getStar(){
+        return star;
+    }
 }

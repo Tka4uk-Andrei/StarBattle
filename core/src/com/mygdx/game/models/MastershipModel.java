@@ -6,6 +6,8 @@ public class MastershipModel {
 
     private Point centerPoint;
 
+    private int side;
+
     public Point getCenterPoint() {
         return centerPoint;
     }
@@ -14,7 +16,12 @@ public class MastershipModel {
         this.centerPoint = centerPoint;
     }
 
-    public MastershipModel (Point centerPoint) {
+    public MastershipModel (Point centerPoint, int side) {
         this.centerPoint = new Point(centerPoint);
+        this.side = side;
+    }
+
+    public int getSide(){
+        return side;
     }
 }

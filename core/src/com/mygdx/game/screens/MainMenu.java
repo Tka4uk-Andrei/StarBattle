@@ -28,7 +28,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     public MainMenu(GdxGame gdxGame) {
 
         this.gdxGame = gdxGame;
-        img = new Texture("badlogic.jpg");
+        img = new Texture("play.png");
         batch = new SpriteBatch();
 
         Gdx.input.setInputProcessor(new GestureDetector(this));
@@ -46,17 +46,12 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.draw(img, 200, 200, 200, 200, 50, 50, 1, 1, rotation, 0, 0, img.getWidth(), img.getHeight(), false, false);
+        batch.draw(img, Gdx.graphics.getWidth() / 2 - img.getWidth() / 2, Gdx.graphics.getHeight() / 2 - img.getHeight() / 2);
         batch.end();
-
-        if (rotation >= 360)
-            rotation = 0;
-
-        rotation += 1f;
     }
 
     @Override

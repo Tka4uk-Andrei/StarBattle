@@ -92,7 +92,7 @@ public class FriendlyMastership extends Mastership {
         }
 
         if (progress.isDone()) {
-            star.getBasicStar().setSide((star.getBasicStar().getModel().getSide() + 1) % 4);
+            star.getBasicStar().setSide((star.getBasicStar().getModel().getSide() + 1) % 3);
             progress.setCurrentFrame(0);
             progress.setTime(System.currentTimeMillis());
             return false;

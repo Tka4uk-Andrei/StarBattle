@@ -55,6 +55,8 @@ public class View {
     }
 
     public void update(boolean rotationFlag) {
+        if (textures == null)
+            time = System.currentTimeMillis();
         if (System.currentTimeMillis() - time >= textures.getFrameTime()) {
             time = System.currentTimeMillis();
             currentFrame = (currentFrame + 1) % textures.getTextures().size;
@@ -119,6 +121,9 @@ public class View {
     public void setTexturesPack(TexturesPack textures) {
 //        renderPoint.setX(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getWidth() / 2);
 //        renderPoint.setY(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getHeight() / 2);
+
+        if (textures == null)
+            textures = this.textures;
 
         this.textures = textures;
 

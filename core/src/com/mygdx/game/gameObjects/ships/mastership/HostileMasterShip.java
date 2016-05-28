@@ -81,7 +81,7 @@ public class HostileMasterShip extends Mastership {
         }
 
         if (progress.isDone()) {
-            star.getBasicStar().setSide((star.getBasicStar().getModel().getSide() + 4 - 1) % 4);
+            star.getBasicStar().setSide((star.getBasicStar().getModel().getSide() + 3 - 1) % 3);
             progress.setCurrentFrame(0);
             progress.setTime(System.currentTimeMillis());
             return false;

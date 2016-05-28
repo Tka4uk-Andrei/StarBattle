@@ -3,6 +3,7 @@ package com.mygdx.game.actions;
 import com.mygdx.game.gameObjects.ships.Ship;
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.gameObjects.stars.Star;
+import com.mygdx.game.system.Constants;
 import com.mygdx.game.system.Point;
 
 public class Send {
@@ -60,8 +61,20 @@ public class Send {
 
         if (ship == null) {
             mastership.getShipView().setRotation(rotation);
-            currentStar.getBasicStar().setMastership(null);
-            destinationStar.getBasicStar().setMastership(mastership);
+            if (mastership.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
+                {
+                    if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE))
+                        currentStar.getBasicStar().setMastership(null);
+                    destinationStar.getBasicStar().setMastership(mastership);
+                }
+            } else {
+                if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE)) {
+                    currentStar.getBasicStar().setMastership(null);
+                    destinationStar.getBasicStar().setMastership(mastership);
+                }
+            }
+
+
         } else {
             ship.getShipView().setRotation(rotation);
         }

@@ -14,8 +14,6 @@ import com.mygdx.game.system.Point;
 import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ships.cruiser.CruiserTextureHostile;
-import com.mygdx.game.textures.ships.mastership.MastershipTextureFriendly;
-import com.mygdx.game.textures.ships.shield.ShieldTextureHostile;
 
 public class MainMenu implements Screen, GestureDetector.GestureListener {
 
@@ -34,6 +32,8 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
     private TexturesPack ship;
 
+    private Point center;
+
     public MainMenu(GdxGame gdxGame) {
 
         this.gdxGame = gdxGame;
@@ -46,11 +46,15 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
         playScreen = null;
         editorSettings = null;
 
+        rotation = 0;
+
         ship = new CruiserTextureHostile();
+
+        center = new Point(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
         view = new View(ship,
                 new Point(Gdx.graphics.getWidth() / 2f - img.getWidth() / 2f - ship.getTextures().get(0).getWidth() / 2f - 30, Gdx.graphics.getHeight() / 2f),
-                new Point(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2), 0, 0);
+                center, 0, 0);
     }
 
     @Override
@@ -65,16 +69,19 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         view.update(true);
+        rotation -= 0.5f;
+
+        if (rotation <= 0)
+            rotation += 360;
 
         batch.begin();
         batch.draw(img, Gdx.graphics.getWidth() / 2 - img.getWidth() / 2, Gdx.graphics.getHeight() / 2 - img.getHeight() / 2);
         batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
                 (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
-                view.getFrame().getWidth() + 10, view.getFrame().getHeight() + 10, 1, 1,
-                view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                view.getFrame().getWidth() + 20, view.getFrame().getHeight() + 20, 1, 1,
+                rotation, 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                 false, false);
         batch.end();
-
 
     }
 
@@ -107,8 +114,11 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
+        Point touch = new Point(x, Gdx.graphics.getHeight() - y);
+
         playScreen = new PlayScreen(gdxGame, this);
-        gdxGame.setScreen(playScreen);
+        if (center.inRectRangeThatPoint(touch, img.getWidth() / 2, img.getHeight() / 2))
+            gdxGame.setScreen(playScreen);
         return true;
     }
 

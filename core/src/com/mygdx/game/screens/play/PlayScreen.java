@@ -22,6 +22,7 @@ public class PlayScreen implements Screen, GestureDetector.GestureListener {
 
     private SpriteBatch batch;
 
+
     public PlayScreen(GdxGame gdxGame, MainMenu mainMenu) {
         this.gdxGame = gdxGame;
         this.mainMenu = mainMenu;
@@ -38,8 +39,11 @@ public class PlayScreen implements Screen, GestureDetector.GestureListener {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0.647f, 0, 1);
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        aiLevelChoose = new AILevelChoose(gdxGame, this);
+        gdxGame.setScreen(aiLevelChoose);
     }
 
     @Override
@@ -66,7 +70,6 @@ public class PlayScreen implements Screen, GestureDetector.GestureListener {
     public void dispose() {
         batch.dispose();
     }
-
 
 
     @Override

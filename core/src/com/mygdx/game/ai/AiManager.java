@@ -14,7 +14,7 @@ public class AiManager extends Thread {
     private HostileMasterShip hostileMastership;
     private FriendlyMastership friendlyMastership;
     private float starPeriodicity[];
-    private boolean endFlag = false;
+    private int endFlag = 0;
 
     public AiManager(Array<Star> stars, HostileMasterShip hostileMastership, FriendlyMastership friendlyMastership) {
 
@@ -32,9 +32,9 @@ public class AiManager extends Thread {
         super.run();
 
         synchronized (stars){
-            endFlag = !GameEnd.isGameEnd(stars);
+            endFlag = GameEnd.isGameEnd(stars);
         }
-        while (endFlag) {
+        while (endFlag == 0) {
 
             for (int i = 0; i < starPeriodicity.length; ++i)
                 starPeriodicity[i] = 0;

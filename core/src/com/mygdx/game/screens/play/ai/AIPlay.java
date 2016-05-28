@@ -19,6 +19,7 @@ import com.mygdx.game.gameObjects.stars.MineStar;
 import com.mygdx.game.gameObjects.stars.SmallStar;
 import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.models.StarModel;
+import com.mygdx.game.system.Constants;
 import com.mygdx.game.system.Point;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
@@ -41,6 +42,9 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
     private FocusTexture focusTexture;
 
     private AiManager manager;
+
+    private Texture winFr;
+    private Texture winH;
 
     public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose, Array<StarModel> starModels) {
 
@@ -85,6 +89,9 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         stars.get(1).getBasicStar().setMastership(friendlyMastership);
         stars.get(2).getBasicStar().setMastership(hostileMasterShip);
 
+        winFr = new Texture("blueWin.png");
+        winH = new Texture("redWin.png");
+
         manager = new AiManager(stars, hostileMasterShip, friendlyMastership);
         manager.start();
     }
@@ -99,7 +106,7 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (!GameEnd.isGameEnd(stars)) {
+        if (GameEnd.isGameEnd(stars) == 0) {
 
             batch.begin();
             batch.draw(background, 0, 0, 0, 0, background.getWidth(), background.getHeight(),
@@ -145,6 +152,12 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
             batch.end();
 
+        } else {
+            if (GameEnd.isGameEnd(stars) == Constants.Sides.FRIENDLY) {
+                batch.draw(winFr, Gdx.graphics.getWidth() / 2 - winFr.getWidth() / 2, Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 2 - winFr.getHeight() / 2));
+            } else {
+                batch.draw(winH, Gdx.graphics.getWidth() / 2 - winH.getWidth() / 2, Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 2 - winH.getHeight() / 2));
+            }
         }
     }
 

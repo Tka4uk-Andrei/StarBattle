@@ -10,6 +10,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GdxGame;
 import com.mygdx.game.screens.editor.EditorSettings;
 import com.mygdx.game.screens.play.PlayScreen;
+import com.mygdx.game.system.Point;
+import com.mygdx.game.system.TexturesPack;
+import com.mygdx.game.system.View;
+import com.mygdx.game.textures.ships.cruiser.CruiserTextureHostile;
+import com.mygdx.game.textures.ships.mastership.MastershipTextureFriendly;
+import com.mygdx.game.textures.ships.shield.ShieldTextureHostile;
 
 public class MainMenu implements Screen, GestureDetector.GestureListener {
 
@@ -24,6 +30,9 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     private float rotation = 0;
     private Texture img;
 
+    private View view;
+
+    private TexturesPack ship;
 
     public MainMenu(GdxGame gdxGame) {
 
@@ -36,6 +45,12 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
         settings = null;
         playScreen = null;
         editorSettings = null;
+
+        ship = new CruiserTextureHostile();
+
+        view = new View(ship,
+                new Point(Gdx.graphics.getWidth() / 2f - img.getWidth() / 2f - ship.getTextures().get(0).getWidth() / 2f - 30, Gdx.graphics.getHeight() / 2f),
+                new Point(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2), 0, 0);
     }
 
     @Override
@@ -46,12 +61,21 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        view.update(true);
 
         batch.begin();
         batch.draw(img, Gdx.graphics.getWidth() / 2 - img.getWidth() / 2, Gdx.graphics.getHeight() / 2 - img.getHeight() / 2);
+        batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
+                (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                view.getFrame().getWidth() + 10, view.getFrame().getHeight() + 10, 1, 1,
+                view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                false, false);
         batch.end();
+
+
     }
 
     @Override
@@ -79,7 +103,6 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
         img.dispose();
         batch.dispose();
     }
-
 
 
     @Override

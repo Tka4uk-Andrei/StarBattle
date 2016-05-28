@@ -3,7 +3,6 @@ package com.mygdx.game.actions;
 import com.mygdx.game.gameObjects.ships.Ship;
 import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.gameObjects.stars.Star;
-import com.mygdx.game.system.Constants;
 import com.mygdx.game.system.Point;
 
 public class Send {
@@ -39,10 +38,23 @@ public class Send {
 
     public void send(Star destinationStar) {
 
-        this.destinationStar = destinationStar;
-
         if (isSande())
             return;
+
+        if (ship == null)
+            if (mastership.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
+                {
+                    if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE)) {
+                        return;
+                    }
+                }
+            } else {
+                if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE)) {
+                    return;
+                }
+            }
+
+        this.destinationStar = destinationStar;
 
         vectorX = (destinationStar.getBasicStar().getModel().getCenterPoint().getX() -
                 currentStar.getBasicStar().getModel().getCenterPoint().getX()) / Constants.JUMP_TIME;
@@ -59,22 +71,11 @@ public class Send {
         else
             rotation += 90;
 
+
         if (ship == null) {
             mastership.getShipView().setRotation(rotation);
-            if (mastership.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
-                {
-                    if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE))
-                        currentStar.getBasicStar().setMastership(null);
-                    destinationStar.getBasicStar().setMastership(mastership);
-                }
-            } else {
-                if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE)) {
-                    currentStar.getBasicStar().setMastership(null);
-                    destinationStar.getBasicStar().setMastership(mastership);
-                }
-            }
-
-
+            destinationStar.setMastership(mastership);
+            currentStar.setMastership(null);
         } else {
             ship.getShipView().setRotation(rotation);
         }
@@ -106,8 +107,6 @@ public class Send {
                 mastership.setCenterPoint(new Point(destinationStar.getBasicStar().getModel().getCenterPoint()));
                 mastership.setStar(destinationStar);
 
-                currentStar.getBasicStar().setMastership(null);
-                destinationStar.getBasicStar().setMastership(mastership);
 
                 currentStar = destinationStar;
             }

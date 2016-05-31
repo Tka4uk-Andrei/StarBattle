@@ -49,7 +49,7 @@ public class View {
         GlyphLayout layout = new GlyphLayout();
         layout.setText(bitmapFont, text);
 
-        renderPoint = new Point(centerPoint.getX(), centerPoint.getY());
+        renderPoint = new Point(centerPoint.getX() - layout.width / 2, centerPoint.getY());
 
         textures = null;
     }

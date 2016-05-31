@@ -46,6 +46,10 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
     private Texture winFr;
     private Texture winH;
 
+    private Texture backBtn;
+    private Point backPoint;
+    private Point backRenderPoitn;
+
     public AIPlay(GdxGame gdxGame, AILevelChoose aiLevelChoose, Array<StarModel> starModels) {
 
         this.gdxGame = gdxGame;
@@ -92,6 +96,11 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
         winFr = new Texture("blueWin.png");
         winH = new Texture("redWin.png");
 
+        backBtn = new Texture("return.png");
+
+        backPoint = new Point(5 + backBtn.getWidth() / 2, 5 + backBtn.getHeight() / 2);
+        backRenderPoitn = new Point(5, 5);
+
         manager = new AiManager(stars, hostileMasterShip, friendlyMastership);
         manager.start();
     }
@@ -103,14 +112,14 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (GameEnd.isGameEnd(stars) == 0) {
 
             batch.begin();
-            batch.draw(background, 0, 0, 0, 0, background.getWidth(), background.getHeight(),
-                    1, 1, 0, 0, 0, background.getWidth(), background.getHeight(), false, false);
+//            batch.draw(background, 0, 0, 0, 0, background.getWidth(), background.getHeight(),
+//                    1, 1, 0, 0, 0, background.getWidth(), background.getHeight(), false, false);
             synchronized (stars) {
                 for (Star star : stars) {
                     for (View view : star.getViews())
@@ -150,13 +159,19 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
                     }
             }
 
+            batch.draw(backBtn, backRenderPoitn.getX(), backRenderPoitn.getY());
+
             batch.end();
 
         } else {
             if (GameEnd.isGameEnd(stars) == Constants.Sides.FRIENDLY) {
+                batch.begin();
                 batch.draw(winFr, Gdx.graphics.getWidth() / 2 - winFr.getWidth() / 2, Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 2 - winFr.getHeight() / 2));
+                batch.end();
             } else {
+                batch.begin();
                 batch.draw(winH, Gdx.graphics.getWidth() / 2 - winH.getWidth() / 2, Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() / 2 - winH.getHeight() / 2));
+                batch.end();
             }
         }
     }
@@ -192,15 +207,24 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
+        if (GameEnd.isGameEnd(stars) == 0) {
+            Point touch = new Point(x, Gdx.graphics.getHeight() - y);
 
-        Point touch = new Point(x, Gdx.graphics.getHeight() - y);
+            friendlyMastership.onTouch(touch);
 
-        friendlyMastership.onTouch(touch);
+            for (int i = 0; i < stars.size; ++i) {
+                if (stars.get(i).getBasicStar().isSendFlag())
+                    stars.get(i).sendTouch(touch);
+                stars.get(i).onTouch(touch);
+            }
 
-        for (int i = 0; i < stars.size; ++i) {
-            if (stars.get(i).getBasicStar().isSendFlag())
-                stars.get(i).sendTouch(touch);
-            stars.get(i).onTouch(touch);
+            if (backPoint.inRectRangeThatPoint(touch, backBtn.getWidth(), backBtn.getHeight())) {
+                gdxGame.setScreen(aiLevelChoose);
+                Gdx.input.setInputProcessor(new GestureDetector(aiLevelChoose));
+            }
+        } else {
+            gdxGame.setScreen(aiLevelChoose);
+            Gdx.input.setInputProcessor(new GestureDetector(aiLevelChoose));
         }
 
         return true;

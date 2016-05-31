@@ -53,7 +53,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
         center = new Point(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
         view = new View(ship,
-                new Point(Gdx.graphics.getWidth() / 2f - img.getWidth() / 2f - ship.getTextures().get(0).getWidth() / 2f - 30, Gdx.graphics.getHeight() / 2f),
+                new Point(Gdx.graphics.getWidth() / 2f - img.getWidth() / 2f - ship.getTextures().get(0).getWidth() / 2f - 60, Gdx.graphics.getHeight() / 2f),
                 center, 0, 0);
     }
 
@@ -78,7 +78,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
         batch.draw(img, Gdx.graphics.getWidth() / 2 - img.getWidth() / 2, Gdx.graphics.getHeight() / 2 - img.getHeight() / 2);
         batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
                 (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
-                view.getFrame().getWidth() + 20, view.getFrame().getHeight() + 20, 1, 1,
+                view.getFrame().getWidth() + 40, view.getFrame().getHeight() + 40, 1, 1,
                 rotation, 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                 false, false);
         batch.end();

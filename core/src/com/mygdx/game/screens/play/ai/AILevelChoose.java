@@ -110,52 +110,52 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
             py = (screenHeight - 128) / (mapHeight * 2);
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
-                    screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 1,
+                    screenHeight - (128 / 2 + py + py * 2 * 0)), 0, StarModel.Constants.Types.FACTORY,
                     new int[]{1, 2, 3}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
-                    screenHeight - (128 / 2 + py + py * 2 * 0)), 0, 2,
+                    screenHeight - (128 / 2 + py + py * 2 * 0)), 0, StarModel.Constants.Types.FACTORY,
                     new int[]{0, 4, 5}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 3,
+                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.ADVANCED_FACTORY,
                     new int[]{0, 3, 6, 8}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 4,
+                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.SMALL,
                     new int[]{0, 2, 4, 9}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 1,
+                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.ADVANCED_FACTORY,
                     new int[]{1, 3, 5, 9, 10}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, 2,
+                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.MINE,
                     new int[]{1, 4, 7, 11}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
-                    screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 3,
+                    screenHeight - (128 / 2 + py + py * 2 * 2)), 0, StarModel.Constants.Types.SMALL,
                     new int[]{2}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
-                    screenHeight - (128 / 2 + py + py * 2 * 2)), 0, 4,
+                    screenHeight - (128 / 2 + py + py * 2 * 2)), 0, StarModel.Constants.Types.SMALL,
                     new int[]{5}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.FACTORY,
                     new int[]{2, 9}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.MINE,
                     new int[]{3, 8, 4, 10}, new FleetModel()));
 
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.SMALL,
                     new int[]{4, 9, 11}, new FleetModel()));
 
             stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, 1,
+                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.FACTORY,
                     new int[]{5, 10}, new FleetModel()));
 
 
@@ -165,6 +165,11 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
         }
 
         return true;
+    }
+
+    public void returnBack(){
+        gdxGame.getScreen();
+
     }
 
     @Override
@@ -201,4 +206,6 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
         return false;
     }
+
+
 }

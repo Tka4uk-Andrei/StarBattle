@@ -43,13 +43,10 @@ public class Send {
 
         if (ship == null)
             if (mastership.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
-                {
-                    if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE)) {
+                    if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE))
                         return;
-                    }
-                }
             } else {
-                if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE)) {
+                if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.FRIENDLY)) {
                     return;
                 }
             }

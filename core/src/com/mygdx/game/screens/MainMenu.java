@@ -76,8 +76,8 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
         batch.begin();
         batch.draw(img, Gdx.graphics.getWidth() / 2 - img.getWidth() / 2, Gdx.graphics.getHeight() / 2 - img.getHeight() / 2);
-        batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
-                (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+        batch.draw(view.getFrame(), (int) view.getViewModel().getRenderPoint().getX(), (int) view.getViewModel().getRenderPoint().getY(),
+                (int) view.getViewModel().getOriginPoint().getX(), (int) view.getViewModel().getOriginPoint().getY(),
                 view.getFrame().getWidth() + 40, view.getFrame().getHeight() + 40, 1, 1,
                 rotation, 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                 false, false);

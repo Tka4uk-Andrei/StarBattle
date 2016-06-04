@@ -3,29 +3,36 @@ package com.mygdx.game.system;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.mygdx.game.models.ViewModel;
 
 public class View {
 
     private TexturesPack textures;
     private long time;
-    private Point originPoint;
-    private Point renderPoint;
-    private float rotation;
 
     private int currentFrame;
 
     private BitmapFont bitmapFont;
     private String text;
 
+    private ViewModel viewModel;
+
     public View(TexturesPack texturesPack, Point centerPoint, Point originPoint, int currentFrame, float rotation) {
+
         time = System.currentTimeMillis();
         textures = texturesPack;
         this.currentFrame = currentFrame;
-        renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
-                centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
 
-        this.originPoint = new Point(originPoint.getX() - renderPoint.getX(), originPoint.getY() - renderPoint.getY());
-        this.rotation = rotation;
+        Point renderPoint = new Point(
+                centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
+                centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2
+        );
+
+        viewModel = new ViewModel(renderPoint,
+                new Point(
+                        originPoint.getX() - renderPoint.getX(),
+                        originPoint.getY() - renderPoint.getY()
+                ), centerPoint, rotation);
 
         bitmapFont = null;
     }
@@ -34,9 +41,16 @@ public class View {
         time = System.currentTimeMillis();
         textures = texturesPack;
         this.currentFrame = currentFrame;
-        renderPoint = new Point(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
+
+        Point renderPoint = new Point(
+                centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2,
                 centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
-        originPoint = new Point(textures.getTextures().get(currentFrame).getWidth() / 2, textures.getTextures().get(currentFrame).getHeight() / 2);
+
+        Point originPoint = new Point(
+                textures.getTextures().get(currentFrame).getWidth() / 2,
+                textures.getTextures().get(currentFrame).getHeight() / 2);
+
+        viewModel = new ViewModel(renderPoint, originPoint, centerPoint, 0);
 
         bitmapFont = null;
     }
@@ -49,7 +63,10 @@ public class View {
         GlyphLayout layout = new GlyphLayout();
         layout.setText(bitmapFont, text);
 
-        renderPoint = new Point(centerPoint.getX() - layout.width / 2, centerPoint.getY());
+        viewModel = new ViewModel(new Point(
+                centerPoint.getX() - layout.width / 2,
+                centerPoint.getY()
+        ), new Point(), new Point(), 0);
 
         textures = null;
     }
@@ -61,34 +78,15 @@ public class View {
             time = System.currentTimeMillis();
             currentFrame = (currentFrame + 1) % textures.getTextures().size;
             if (rotationFlag) {
-                rotation += textures.getDeltaDegree();
-                if (rotation >= 360)
-                    rotation -= 360;
+                viewModel.setRotation(viewModel.getRotation() + textures.getDeltaDegree());
+                if (viewModel.getRotation() >= 360)
+                    viewModel.setRotation(viewModel.getRotation() - 360);
             }
         }
     }
 
-    public Point getOriginPoint() {
-        return originPoint;
-    }
-
-    public void setOriginPoint(Point originPoint) {
-        this.originPoint = originPoint;
-    }
-
-    public void setOriginPointInCenter() {
-        originPoint.setX(textures.getTextures().get(currentFrame).getWidth() / 2);
-        originPoint.setY(textures.getTextures().get(currentFrame).getHeight() / 2);
-    }
-
-    public Point getRenderPoint() {
-        return renderPoint;
-    }
-
-    public void setRenderPoint(Point centerPoint) {
-        renderPoint.setX(centerPoint.getX() - textures.getTextures().get(currentFrame).getWidth() / 2);
-        renderPoint.setY(centerPoint.getY() - textures.getTextures().get(currentFrame).getHeight() / 2);
-
+    public ViewModel getViewModel() {
+        return viewModel;
     }
 
     public Texture getFrame() {
@@ -96,14 +94,6 @@ public class View {
             return textures.getTextures().get(currentFrame);
         else
             return null;
-    }
-
-    public float getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
     }
 
     public int getCurrentFrame() {
@@ -119,16 +109,21 @@ public class View {
     }
 
     public void setTexturesPack(TexturesPack textures) {
-//        renderPoint.setX(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getWidth() / 2);
-//        renderPoint.setY(getRenderPoint().getX() + this.textures.getTextures().get(currentFrame).getHeight() / 2);
-
         if (textures == null)
             textures = this.textures;
 
         this.textures = textures;
+    }
 
-//        renderPoint.setX(getRenderPoint().getX() - this.textures.getTextures().get(currentFrame).getWidth() / 2);
-//        renderPoint.setY(getRenderPoint().getX() - this.textures.getTextures().get(currentFrame).getHeight() / 2);
+    public void setOriginPointInCenter() {
+        viewModel.setOriginPoint(new Point(getTexturesPack().getTextures().get(0).getWidth() / 2,
+                getTexturesPack().getTextures().get(0).getHeight() / 2));
+    }
+
+    public void setRenderPointByCenter(Point centerPoint) {
+        viewModel.setCenterPoint(new Point(centerPoint));
+        viewModel.getRenderPoint().setX(centerPoint.getX() - getTexturesPack().getTextures().get(0).getWidth() / 2);
+        viewModel.getRenderPoint().setY(centerPoint.getY() - getTexturesPack().getTextures().get(0).getHeight() / 2);
     }
 
     public void setTime(long time) {

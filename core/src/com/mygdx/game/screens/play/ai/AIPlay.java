@@ -124,38 +124,38 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
                 for (Star star : stars) {
                     for (View view : star.getViews())
                         if (view.getFrame() != null) {
-                            batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
-                                    (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                            batch.draw(view.getFrame(), (int) view.getViewModel().getRenderPoint().getX(), (int) view.getViewModel().getRenderPoint().getY(),
+                                    (int) view.getViewModel().getOriginPoint().getX(), (int) view.getViewModel().getOriginPoint().getY(),
                                     view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
-                                    view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                                    view.getViewModel().getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                                     false, false);
                         } else {
-                            view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
+                            view.getBitmapFont().draw(batch, view.getText(), (int) view.getViewModel().getRenderPoint().getX(), (int) view.getViewModel().getRenderPoint().getY());
                         }
                 }
             }
             synchronized (friendlyMastership) {
                 for (View view : friendlyMastership.getViews())
                     if (view.getFrame() != null) {
-                        batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
-                                (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                        batch.draw(view.getFrame(), (int) view.getViewModel().getRenderPoint().getX(), (int) view.getViewModel().getRenderPoint().getY(),
+                                (int) view.getViewModel().getOriginPoint().getX(), (int) view.getViewModel().getOriginPoint().getY(),
                                 view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
-                                view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                                view.getViewModel().getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                                 false, false);
                     } else {
-                        view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
+                        view.getBitmapFont().draw(batch, view.getText(), (int) view.getViewModel().getRenderPoint().getX(), (int) view.getViewModel().getRenderPoint().getY());
                     }
             }
             synchronized (hostileMasterShip) {
                 for (View view : hostileMasterShip.getViews())
                     if (view.getFrame() != null) {
-                        batch.draw(view.getFrame(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY(),
-                                (int) view.getOriginPoint().getX(), (int) view.getOriginPoint().getY(),
+                        batch.draw(view.getFrame(), (int) view.getViewModel().getRenderPoint().getX(), (int) view.getViewModel().getRenderPoint().getY(),
+                                (int) view.getViewModel().getOriginPoint().getX(), (int) view.getViewModel().getOriginPoint().getY(),
                                 view.getFrame().getWidth(), view.getFrame().getHeight(), 1, 1,
-                                view.getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
+                                view.getViewModel().getRotation(), 0, 0, view.getFrame().getWidth(), view.getFrame().getHeight(),
                                 false, false);
                     } else {
-                        view.getBitmapFont().draw(batch, view.getText(), (int) view.getRenderPoint().getX(), (int) view.getRenderPoint().getY());
+                        view.getBitmapFont().draw(batch, view.getText(), (int) view.getViewModel().getRenderPoint().getX(), (int) view.getViewModel().getRenderPoint().getY());
                     }
             }
 

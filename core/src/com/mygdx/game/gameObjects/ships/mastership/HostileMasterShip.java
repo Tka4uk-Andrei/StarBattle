@@ -102,7 +102,7 @@ public class HostileMasterShip extends Mastership {
 
     @Override
     public void setCenterPoint(Point centerPoint) {
-        view.setRenderPoint(centerPoint);
+        view.setRenderPointByCenter(centerPoint);
         view.setOriginPointInCenter();
         model.setCenterPoint(centerPoint);
         progress.setCenterPoint(centerPoint);

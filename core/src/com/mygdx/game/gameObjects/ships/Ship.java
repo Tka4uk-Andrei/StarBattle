@@ -71,7 +71,7 @@ public class Ship {
 
     public void setCenterPoint(Point point) {
         model.setCenterPoint(point);
-        view.setRenderPoint(point);
+        view.setRenderPointByCenter(point);
         view.setOriginPointInCenter();
     }
 

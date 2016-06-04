@@ -70,11 +70,11 @@ public class Send {
 
 
         if (ship == null) {
-            mastership.getShipView().setRotation(rotation);
+            mastership.getShipView().getViewModel().setRotation(rotation);
             destinationStar.setMastership(mastership);
             currentStar.setMastership(null);
         } else {
-            ship.getShipView().setRotation(rotation);
+            ship.getShipView().getViewModel().setRotation(rotation);
         }
     }
 
@@ -100,7 +100,7 @@ public class Send {
                 vectorX = 0;
                 vectorY = 0;
 
-                mastership.getShipView().setRotation(0);
+                mastership.getShipView().getViewModel().setRotation(0);
                 mastership.setCenterPoint(new Point(destinationStar.getBasicStar().getModel().getCenterPoint()));
                 mastership.setStar(destinationStar);
 

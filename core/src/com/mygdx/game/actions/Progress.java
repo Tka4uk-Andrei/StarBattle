@@ -27,7 +27,7 @@ public class Progress {
 
     private void update() {
 
-        view.setRenderPoint(centerPoint);
+        view.setRenderPointByCenter(centerPoint);
         view.update(false);
 
         if (view.getCurrentFrame() == (view.getTexturesPack().getTextures().size - 1) && firstDone) {
@@ -67,7 +67,7 @@ public class Progress {
     }
 
     public void setCenterPoint(Point centerPoint){
-        view.setRenderPoint(centerPoint);
+        view.setRenderPointByCenter(centerPoint);
         this.centerPoint = centerPoint;
     }
 

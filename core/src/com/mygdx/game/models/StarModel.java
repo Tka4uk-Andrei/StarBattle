@@ -4,6 +4,7 @@ import com.mygdx.game.system.Point;
 
 public class StarModel {
 
+    private int mastership;
     private int side = 0;
     private int currentFrame;
     private Point centerPoint;
@@ -17,6 +18,7 @@ public class StarModel {
         this.connectedStars = connectedStars;
         this.fleetModel = fleetModel;
         this.type = type;
+        mastership = 0;
     }
 
     public int getSide() {
@@ -65,6 +67,14 @@ public class StarModel {
 
     public void setFleetModel(FleetModel fleetModel) {
         this.fleetModel = fleetModel;
+    }
+
+    public int getMastership() {
+        return mastership;
+    }
+
+    public void setMastership(int mastership) {
+        this.mastership = mastership;
     }
 
     public static class Constants {

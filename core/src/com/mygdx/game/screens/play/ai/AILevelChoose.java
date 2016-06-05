@@ -12,6 +12,8 @@ import com.mygdx.game.GdxGame;
 import com.mygdx.game.models.FleetModel;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.screens.play.PlayScreen;
+import com.mygdx.game.screens.play.online.LevelChooseNetwork;
+import com.mygdx.game.system.Levels;
 import com.mygdx.game.system.Point;
 
 public class AILevelChoose implements Screen, GestureDetector.GestureListener {
@@ -98,68 +100,8 @@ public class AILevelChoose implements Screen, GestureDetector.GestureListener {
 
         if (btnCenter.inRectRangeThatPoint(touch, btn.getWidth() / 2, btn.getHeight() / 2)) {
 
-            Array<StarModel> stars = new Array<StarModel>();
-
-            screenHeight = Gdx.graphics.getHeight();
-            screenWidth = Gdx.graphics.getWidth();
-
-            int mapWidth = 6;
-            int mapHeight = 4;
-
-            px = (screenWidth - 128 - 128) / (mapWidth * 2);
-            py = (screenHeight - 128) / (mapHeight * 2);
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
-                    screenHeight - (128 / 2 + py + py * 2 * 0)), 0, StarModel.Constants.Types.FACTORY,
-                    new int[]{1, 2, 3}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
-                    screenHeight - (128 / 2 + py + py * 2 * 0)), 0, StarModel.Constants.Types.FACTORY,
-                    new int[]{0, 4, 5}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.ADVANCED_FACTORY,
-                    new int[]{0, 3, 6, 8}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.SMALL,
-                    new int[]{0, 2, 4, 9}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.ADVANCED_FACTORY,
-                    new int[]{1, 3, 5, 9, 10}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
-                    screenHeight - (128 / 2 + py + py * 2 * 1)), 0, StarModel.Constants.Types.MINE,
-                    new int[]{1, 4, 7, 11}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 1,
-                    screenHeight - (128 / 2 + py + py * 2 * 2)), 0, StarModel.Constants.Types.SMALL,
-                    new int[]{2}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 4,
-                    screenHeight - (128 / 2 + py + py * 2 * 2)), 0, StarModel.Constants.Types.SMALL,
-                    new int[]{5}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 0,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.FACTORY,
-                    new int[]{2, 9}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 2,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.MINE,
-                    new int[]{3, 8, 4, 10}, new FleetModel()));
-
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 3,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.SMALL,
-                    new int[]{4, 9, 11}, new FleetModel()));
-
-            stars.add(new StarModel(new Point(128 / 2 + px + px * 2 * 5,
-                    screenHeight - (128 / 2 + py + py * 2 * 3)), 0, StarModel.Constants.Types.FACTORY,
-                    new int[]{5, 10}, new FleetModel()));
-
-
-            aiPlay = new AIPlay(gdxGame, this, stars);
+//            aiPlay = new AIPlay(gdxGame, this, stars);
+            aiPlay = new AIPlay(gdxGame, this, Levels.getStars1());
             gdxGame.setScreen(aiPlay);
 
         }

@@ -85,13 +85,15 @@ public class AIPlay implements Screen, GestureDetector.GestureListener {
                             shipTexturesContainer, starModels, 0, focusTexture));
                     break;
             }
+
+            if (starModels.get(i).getMastership() == Constants.Sides.FRIENDLY) {
+                friendlyMastership = new FriendlyMastership(stars.get(i), stars, focusTexture);
+                stars.get(i).getBasicStar().setMastership(friendlyMastership);
+            } else if (starModels.get(i).getMastership() == Constants.Sides.HOSTILE) {
+                hostileMasterShip = new HostileMasterShip(stars.get(i), stars);
+                stars.get(i).getBasicStar().setMastership(hostileMasterShip);
+            }
         }
-
-        friendlyMastership = new FriendlyMastership(stars.get(1), stars, focusTexture);
-        hostileMasterShip = new HostileMasterShip(stars.get(2), stars);
-
-        stars.get(1).getBasicStar().setMastership(friendlyMastership);
-        stars.get(2).getBasicStar().setMastership(hostileMasterShip);
 
         winFr = new Texture("blueWin.png");
         winH = new Texture("redWin.png");

@@ -8,6 +8,7 @@ import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.ConditionTextures;
+import com.mygdx.game.system.Constants;
 import com.mygdx.game.system.Point;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
@@ -85,43 +86,55 @@ public class BasicStar {
             if (starModels.get(i).getCenterPoint().inRectRangeThatPoint(touch,
                     view.getFrame().getWidth(), view.getFrame().getHeight())) {
 
-                Ship ship = new Ship(shipsTextures, fleetManager.getModelForSend(), star);
+                synchronized (stars.get(i)) {
 
-                switch (fleetManager.getModelForSend().getType()) {
-                    case ShipModel.Constants.Types.RAPTOR:
-                        starModel.getFleetModel().getRaptor().setCount(
-                                starModel.getFleetModel().getRaptor().getCount() - fleetManager.getModelForSend().getCount());
-                        break;
-                    case ShipModel.Constants.Types.CRUISER:
-                        starModel.getFleetModel().getCruiser().setCount(
-                                starModel.getFleetModel().getCruiser().getCount() - fleetManager.getModelForSend().getCount());
-                        break;
-                    case ShipModel.Constants.Types.TWO_CRUISER:
-                        starModel.getFleetModel().getTwoCruiser().setCount(
-                                starModel.getFleetModel().getTwoCruiser().getCount() - fleetManager.getModelForSend().getCount());
-                        break;
-                    case ShipModel.Constants.Types.ONE_CRUISER:
-                        starModel.getFleetModel().getOneCruiser().setCount(
-                                starModel.getFleetModel().getOneCruiser().getCount() - fleetManager.getModelForSend().getCount());
-                        break;
-                    case ShipModel.Constants.Types.SHIELD:
-                        starModel.getFleetModel().getShield().setCount(
-                                starModel.getFleetModel().getShield().getCount() - fleetManager.getModelForSend().getCount());
-                        break;
-                    case ShipModel.Constants.Types.TWO_SHIELD:
-                        starModel.getFleetModel().getTwoShield().setCount(
-                                starModel.getFleetModel().getTwoShield().getCount() - fleetManager.getModelForSend().getCount());
-                        break;
-                    case ShipModel.Constants.Types.ONE_SHIELD:
-                        starModel.getFleetModel().getOneShield().setCount(
-                                starModel.getFleetModel().getOneShield().getCount() - fleetManager.getModelForSend().getCount());
-                        break;
+                    if (stars.get(i).getMastership() != null) {
+                        if (starModel.getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY &&
+                                stars.get(i).getMastership().getModel().getSide() == com.mygdx.game.system.Constants.Sides.HOSTILE)
+                            return;
+                        else if (starModel.getSide() == Constants.Sides.HOSTILE &&
+                                stars.get(i).getMastership().getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY)
+                            return;
+                    }
+
+                    Ship ship = new Ship(shipsTextures, fleetManager.getModelForSend(), star);
+
+                    switch (fleetManager.getModelForSend().getType()) {
+                        case ShipModel.Constants.Types.RAPTOR:
+                            starModel.getFleetModel().getRaptor().setCount(
+                                    starModel.getFleetModel().getRaptor().getCount() - fleetManager.getModelForSend().getCount());
+                            break;
+                        case ShipModel.Constants.Types.CRUISER:
+                            starModel.getFleetModel().getCruiser().setCount(
+                                    starModel.getFleetModel().getCruiser().getCount() - fleetManager.getModelForSend().getCount());
+                            break;
+                        case ShipModel.Constants.Types.TWO_CRUISER:
+                            starModel.getFleetModel().getTwoCruiser().setCount(
+                                    starModel.getFleetModel().getTwoCruiser().getCount() - fleetManager.getModelForSend().getCount());
+                            break;
+                        case ShipModel.Constants.Types.ONE_CRUISER:
+                            starModel.getFleetModel().getOneCruiser().setCount(
+                                    starModel.getFleetModel().getOneCruiser().getCount() - fleetManager.getModelForSend().getCount());
+                            break;
+                        case ShipModel.Constants.Types.SHIELD:
+                            starModel.getFleetModel().getShield().setCount(
+                                    starModel.getFleetModel().getShield().getCount() - fleetManager.getModelForSend().getCount());
+                            break;
+                        case ShipModel.Constants.Types.TWO_SHIELD:
+                            starModel.getFleetModel().getTwoShield().setCount(
+                                    starModel.getFleetModel().getTwoShield().getCount() - fleetManager.getModelForSend().getCount());
+                            break;
+                        case ShipModel.Constants.Types.ONE_SHIELD:
+                            starModel.getFleetModel().getOneShield().setCount(
+                                    starModel.getFleetModel().getOneShield().getCount() - fleetManager.getModelForSend().getCount());
+                            break;
+                    }
+
+                    ship.send(stars.get(i));
+                    ships.add(ship);
+
+                    fleetManager.setDefault();
                 }
-
-                ship.send(stars.get(i));
-                ships.add(ship);
-
-                fleetManager.setDefault();
             }
         }
     }

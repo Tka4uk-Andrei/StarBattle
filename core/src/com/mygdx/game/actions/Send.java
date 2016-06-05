@@ -36,29 +36,18 @@ public class Send {
         vectorY = 0;
     }
 
-    public void send(Star destinationStar) {
+    public boolean send(Star destinationStar) {
 
         if (isSande())
-            return;
+            return false;
 
         if (ship == null) {
             if (mastership.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
                 if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE))
-                    return;
+                    return false;
             } else {
                 if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.FRIENDLY)) {
-                    return;
-                }
-            }
-        } else {
-            if (destinationStar.getMastership() != null) {
-                if (ship.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
-                    if (destinationStar.getMastership().getModel().getSide() == com.mygdx.game.system.Constants.Sides.HOSTILE)
-                        return;
-                } else {
-                    if (destinationStar.getMastership().getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
-                        return;
-                    }
+                    return false;
                 }
             }
         }
@@ -88,6 +77,8 @@ public class Send {
         } else {
             ship.getShipView().getViewModel().setRotation(rotation);
         }
+
+        return true;
     }
 
     public void update() {

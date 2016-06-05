@@ -41,15 +41,27 @@ public class Send {
         if (isSande())
             return;
 
-        if (ship == null)
+        if (ship == null) {
             if (mastership.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
-                    if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE))
-                        return;
+                if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE))
+                    return;
             } else {
                 if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.FRIENDLY)) {
                     return;
                 }
             }
+        } else {
+            if (destinationStar.getMastership() != null) {
+                if (ship.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
+                    if (destinationStar.getMastership().getModel().getSide() == com.mygdx.game.system.Constants.Sides.HOSTILE)
+                        return;
+                } else {
+                    if (destinationStar.getMastership().getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
+                        return;
+                    }
+                }
+            }
+        }
 
         this.destinationStar = destinationStar;
 

@@ -5,6 +5,7 @@ import com.mygdx.game.gameObjects.ships.mastership.Mastership;
 import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.system.Point;
 
+// механизм передачи кораблей
 public class Send {
 
     private Star currentStar;
@@ -36,11 +37,13 @@ public class Send {
         vectorY = 0;
     }
 
+    // передача коробля
     public boolean send(Star destinationStar) {
 
         if (isSande())
             return false;
 
+        // возможно ли послать главный корабль
         if (ship == null) {
             if (mastership.getModel().getSide() == com.mygdx.game.system.Constants.Sides.FRIENDLY) {
                 if (destinationStar.isBlocked(com.mygdx.game.system.Constants.Sides.HOSTILE))
@@ -54,6 +57,7 @@ public class Send {
 
         this.destinationStar = destinationStar;
 
+        // скорости по х и у
         vectorX = (destinationStar.getBasicStar().getModel().getCenterPoint().getX() -
                 currentStar.getBasicStar().getModel().getCenterPoint().getX()) / Constants.JUMP_TIME;
         vectorY = (destinationStar.getBasicStar().getModel().getCenterPoint().getY() -
@@ -81,6 +85,7 @@ public class Send {
         return true;
     }
 
+    // обновление состояния передачи
     public void update() {
         if (!isSande())
             return;
@@ -140,6 +145,7 @@ public class Send {
         }
     }
 
+    // корабль находится в состоянии полета
     public boolean isSande() {
         return (!(vectorX == 0 && vectorY == 0));
     }

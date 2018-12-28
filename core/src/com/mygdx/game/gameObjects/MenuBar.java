@@ -15,6 +15,7 @@ import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
 import com.mygdx.game.textures.TexturePackForTexture;
 
+// отображение боковой панели
 public class MenuBar {
 
     private View raptorView;

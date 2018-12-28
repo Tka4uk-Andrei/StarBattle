@@ -14,6 +14,7 @@ import com.mygdx.game.textures.focus.FocusTexture;
 import com.mygdx.game.textures.progress.ProgressTexture;
 import com.mygdx.game.textures.ships.mastership.MastershipTextureFriendly;
 
+// главный корабль дружественный
 public class FriendlyMastership extends Mastership {
 
     private MastershipModel model;

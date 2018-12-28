@@ -5,11 +5,9 @@ import com.mygdx.game.screens.MainMenu;
 
 public class GdxGame extends Game {
 
-    private MainMenu mainMenu;
-
     @Override
     public void create() {
-        mainMenu = new MainMenu(this);
+        MainMenu mainMenu = new MainMenu(this);
         setScreen(mainMenu);
     }
 

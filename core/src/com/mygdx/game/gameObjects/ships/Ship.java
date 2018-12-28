@@ -9,6 +9,7 @@ import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
 
+// корабль кого - либо типа (не Mastership!)
 public class Ship {
 
     private ShipModel model;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.system.Constants;
 
+// проверка конца игры
 public class GameEnd {
 
     public static int isGameEnd(Array<Star> stars) {

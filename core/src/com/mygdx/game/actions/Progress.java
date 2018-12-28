@@ -6,6 +6,7 @@ import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.progress.ProgressTexture;
 
+// отображение кольца прогресса
 public class Progress {
 
     private View view;

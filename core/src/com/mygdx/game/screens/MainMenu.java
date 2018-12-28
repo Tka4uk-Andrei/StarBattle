@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GdxGame;
-import com.mygdx.game.screens.editor.EditorSettings;
 import com.mygdx.game.screens.play.PlayScreen;
 import com.mygdx.game.system.Point;
 import com.mygdx.game.system.TexturesPack;
@@ -19,9 +18,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
     private GdxGame gdxGame;
 
-    private Settings settings;
     private PlayScreen playScreen;
-    private EditorSettings editorSettings;
 
     private SpriteBatch batch;
 
@@ -42,9 +39,7 @@ public class MainMenu implements Screen, GestureDetector.GestureListener {
 
         Gdx.input.setInputProcessor(new GestureDetector(this));
 
-        settings = null;
         playScreen = null;
-        editorSettings = null;
 
         rotation = 0;
 

@@ -10,6 +10,7 @@ import com.mygdx.game.system.Point;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.ShipTexturesContainer;
 
+// класс - контейнер кораблей
 public class FleetManager {
 
     private View raptorView;

@@ -6,10 +6,16 @@ import com.mygdx.game.models.FleetModel;
 import com.mygdx.game.models.ShipModel;
 import com.mygdx.game.system.Constants;
 
+// класс ответственный за бои между различными короблями.
+// Не Mastership
 public class Fight {
 
     private FleetModel fleetModel;
+
+    // посылапемый корабль
     private ShipModel ship;
+
+    // звезда, с которой битва;
     private Star star;
 
     public Fight(FleetModel fleetModel, ShipModel ship) {
@@ -17,6 +23,7 @@ public class Fight {
         this.ship = ship;
     }
 
+    // логика самого боя
     public void fight(Star star) {
 
         this.star = star;

@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GdxGame;
 import com.mygdx.game.screens.MainMenu;
 import com.mygdx.game.screens.play.ai.AILevelChoose;
-import com.mygdx.game.screens.play.online.Network;
 
 public class PlayScreen implements Screen, GestureDetector.GestureListener {
 
@@ -18,7 +17,6 @@ public class PlayScreen implements Screen, GestureDetector.GestureListener {
 
     private AILevelChoose aiLevelChoose;
     private Description description;
-    private Network network;
 
     private SpriteBatch batch;
 

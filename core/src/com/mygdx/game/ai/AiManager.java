@@ -8,6 +8,7 @@ import com.mygdx.game.gameObjects.stars.Star;
 import com.mygdx.game.models.StarModel;
 import com.mygdx.game.system.Constants;
 
+// ядро ИИ
 public class AiManager extends Thread {
 
     private Array<Star> stars;
@@ -31,7 +32,7 @@ public class AiManager extends Thread {
     public void run() {
         super.run();
 
-        synchronized (stars){
+        synchronized (stars) {
             endFlag = GameEnd.isGameEnd(stars);
         }
         while (endFlag == 0) {
@@ -41,8 +42,10 @@ public class AiManager extends Thread {
 
             int max = 0;
 
+            // расчёт ценных точек
             synchronized (hostileMastership.getStar()) {
-                if (hostileMastership.getStar().getBasicStar().getModel().getSide() == Constants.Sides.HOSTILE && !hostileMastership.getSend().isSande()) {
+                if (hostileMastership.getStar().getBasicStar().getModel().getSide()
+                        == Constants.Sides.HOSTILE && !hostileMastership.getSend().isSande()) {
                     for (int i = 0; i < hostileMastership.getStar().getBasicStar().getModel().getConnectedStars().length; ++i) {
                         synchronized (stars.get(hostileMastership.getStar().getBasicStar().getModel().getConnectedStars()[i])) {
                             if (!friendlyMastership.getModel().getCenterPoint().
@@ -88,6 +91,7 @@ public class AiManager extends Thread {
                             }
                         }
                     }
+                    // отправкав корабля в зависимости от точки
                     synchronized (stars.get(max)) {
                         hostileMastership.send(stars.get(max));
                     }

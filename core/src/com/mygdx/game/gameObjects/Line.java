@@ -10,6 +10,7 @@ import com.mygdx.game.system.TexturesPack;
 import com.mygdx.game.system.View;
 import com.mygdx.game.textures.LineTextures;
 
+// линия между звёздами
 public class Line {
 
     private BasicStar star;

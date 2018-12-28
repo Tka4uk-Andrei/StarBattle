@@ -7,12 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.GdxGame;
-import com.mygdx.game.models.FleetModel;
-import com.mygdx.game.models.StarModel;
 import com.mygdx.game.screens.play.PlayScreen;
-import com.mygdx.game.screens.play.online.LevelChooseNetwork;
 import com.mygdx.game.system.Levels;
 import com.mygdx.game.system.Point;
 

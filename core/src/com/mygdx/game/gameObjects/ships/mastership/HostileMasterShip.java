@@ -14,6 +14,7 @@ import com.mygdx.game.textures.progress.ProgressTexture;
 import com.mygdx.game.textures.ships.mastership.MastershipTextureFriendly;
 import com.mygdx.game.textures.ships.mastership.MastershipTextureHostile;
 
+// главный корабль враг
 public class HostileMasterShip extends Mastership {
 
     private MastershipModel model;
